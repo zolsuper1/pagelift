@@ -88,6 +88,12 @@ app.get('/api/config', (req, res) => {
   });
 });
 
+// ---------- Health: is generation wired up? No keys or secrets are exposed, only yes/no and error kinds ----------
+app.get('/api/health', (req, res) => {
+  res.set('cache-control', 'no-store');
+  res.json({ ok: true, aiMock: config.aiMock, ai: providerStatus().map(({ name, configured, usedToday, lastError }) => ({ name, keySet: configured, usedToday, lastError })) });
+});
+
 // ---------- Tracking (client side only sends page_view) ----------
 app.post('/api/event', (req, res) => {
   const name = req.body?.name;
@@ -330,6 +336,7 @@ app.use(express.static(PUB, { extensions: ['html'], maxAge: config.isProd ? '1h'
 app.use((req, res) => res.status(404).sendFile(join(PUB, '404.html')));
 
 app.listen(config.port, () => {
+  console.log('AI engines:', providerStatus().map((p) => `${p.name}=${p.configured ? 'key set' : 'no key'}`).join(', '), config.aiMock ? '(AI_MOCK on)' : '');
   console.log(`Pagelift running on ${config.baseUrl} (payments: ${config.paymentProvider}${config.aiMock ? ', AI_MOCK' : ''})`);
   kickBatchWorker();
 });

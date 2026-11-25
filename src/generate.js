@@ -54,6 +54,9 @@ const used = (name) => usage.get(`${today()}:${name}`) || 0;
 const bump = (name) => usage.set(`${today()}:${name}`, used(name) + 1);
 
 class SkipProvider extends Error {}
+// Last failure per provider, kept to a short category so it is safe to show on /api/health.
+const lastError = new Map();
+const category = (msg) => { const m = String(msg).match(/HTTP (\d{3})/); return m ? `HTTP ${m[1]}` : /invalid output/.test(msg) ? 'invalid output' : /abort|timeout/i.test(msg) ? 'timeout' : /JSON/.test(msg) ? 'bad JSON' : 'error'; };
 
 function userText(product) {
   const n = product.images?.length || 0;
@@ -124,9 +127,11 @@ export async function generateCopy(product) {
         : OPENAI_COMPAT[name] ? await callOpenAICompatible(name, OPENAI_COMPAT[name], product) : null;
       if (!raw) throw new SkipProvider(`${name}: unknown provider`);
       const out = normalize(validate(raw), imageCount);
+      lastError.delete(name);
       return { ...out, provider: name };
     } catch (e) {
       errors.push(e.message);
+      if (!(e instanceof SkipProvider)) lastError.set(name, { kind: category(e.message), at: new Date().toISOString() });
       if (!(e instanceof SkipProvider)) console.warn(`[generate] ${e.message} → trying next provider`);
     }
   }
@@ -155,7 +160,7 @@ export function providerStatus() {
   return ORDER.map((name) => {
     const p = OPENAI_COMPAT[name];
     const configured = name === 'anthropic' ? Boolean(env.ANTHROPIC_API_KEY || env.ANTHROPIC_AUTH_TOKEN) : Boolean(p?.key && p?.base && p?.model);
-    return { name, configured, usedToday: used(name), dailyLimit: p?.dailyLimit ?? null, model: name === 'anthropic' ? config.anthropicModel : p?.model };
+    return { name, configured, usedToday: used(name), dailyLimit: p?.dailyLimit ?? null, model: name === 'anthropic' ? config.anthropicModel : p?.model, lastError: lastError.get(name) || null };
   });
 }
 
