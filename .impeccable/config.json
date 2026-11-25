@@ -1,0 +1,53 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "overused-font",
+        "value": "arial",
+        "files": [
+          "src/email.js"
+        ],
+        "createdAt": "2026-11-24T22:42:27.332Z",
+        "reason": "Claude: HTML email body; email clients don't load web fonts, so a web-safe stack is required"
+      },
+      {
+        "rule": "overused-font",
+        "value": "arial",
+        "files": [
+          "server.js"
+        ],
+        "createdAt": "2026-11-24T22:42:27.745Z",
+        "reason": "Claude: dev-only mock payment page (disabled in production), not a shipped surface"
+      },
+      {
+        "rule": "gradient-text",
+        "value": "*",
+        "files": [
+          "public/styles.css"
+        ],
+        "createdAt": "2026-11-24T22:47:09.635Z",
+        "reason": "user confirmed: asked for the main headline in the logo's colors and approved the gradient Pagelift wordmark; markup elements carry data-impeccable-ignore"
+      },
+      {
+        "rule": "marquee",
+        "value": "*",
+        "files": [
+          "public/styles.css"
+        ],
+        "createdAt": "2026-11-25T08:05:27.372Z",
+        "reason": "Claude: the user asked for a client-logo carousel; it scrolls only when logos overflow, pauses on hover, stops under reduced motion, and stays hidden until real clients are listed"
+      },
+      {
+        "rule": "marquee",
+        "value": "*",
+        "files": [
+          "public/index.html"
+        ],
+        "createdAt": "2026-11-25T08:10:51.195Z",
+        "reason": "Claude: the user asked for a client-logo carousel; styles live in clients.css, it scrolls only when logos overflow, pauses on hover, stops under reduced motion, hidden until real clients are listed"
+      }
+    ]
+  }
+}

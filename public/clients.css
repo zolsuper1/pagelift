@@ -1,0 +1,12 @@
+/* Client-logo strip: scrolls only when logos overflow (sections.js adds .is-scrolling). Home page only. */
+/* ---- Client logos marquee (only shown with real, approved clients) ---- */
+.clients-sec { padding: 28px 0 40px; }
+.clients-title { margin: 0 0 14px; font-family: var(--script); font-weight: 700; font-size: 20px; color: var(--text-muted); }
+.marquee { overflow: hidden; -webkit-mask: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+.marquee-track { list-style: none; margin: 0 auto; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 24px 64px; }
+.marquee-track.is-scrolling { flex-wrap: nowrap; width: max-content; margin: 0; animation: marquee 40s linear infinite; }
+.marquee:hover .marquee-track { animation-play-state: paused; }
+.marquee-track li { display: grid; place-items: center; height: 44px; color: var(--text-muted); font-weight: 700; font-size: 20px; white-space: nowrap; }
+.marquee-track img { height: 32px; width: auto; opacity: .85; filter: grayscale(1) brightness(1.8); }
+@keyframes marquee { to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) { .marquee-track.is-scrolling { animation: none; flex-wrap: wrap; width: auto; justify-content: center; margin: 0 auto; } }

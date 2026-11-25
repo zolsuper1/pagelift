@@ -1,0 +1,44 @@
+# Render Blueprint: New → Blueprint → pick this repo. Render reads this file and creates the web service.
+# Values marked sync: false are secrets: Render asks for them in the dashboard; they never live in git.
+services:
+  - type: web
+    name: pagelift
+    runtime: node
+    plan: free            # sleeps after ~15 min idle; the disk is wiped on every deploy (SQLite data is lost)
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/config
+    envVars:
+      - key: NODE_VERSION
+        value: "24"
+      - key: TRUST_PROXY
+        value: "1"
+      - key: BASE_URL
+        sync: false        # e.g. https://pagelift.onrender.com (or your own domain later)
+      # AI generation: free Groq first, Gemini as backup
+      - key: AI_MOCK
+        value: "0"
+      - key: AI_PROVIDERS
+        value: groq,gemini,anthropic
+      - key: GROQ_API_KEY
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+      # Payments stay on the mock page until Stripe keys are in (mock is blocked when NODE_ENV=production)
+      - key: PAYMENT_PROVIDER
+        value: mock
+      - key: CURRENCY
+        value: usd
+      - key: MOCK_PAYMENT_SECRET
+        generateValue: true
+      # Cloudflare Turnstile public test keys (always pass). Replace with real keys from the Cloudflare dashboard.
+      - key: TURNSTILE_SITE_KEY
+        value: 1x00000000000000000000AA
+      - key: TURNSTILE_SECRET_KEY
+        value: 1x0000000000000000000000000000000AA
+      - key: PREVIEWS_PER_DAY
+        value: "3"
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: CONTACT_URL
+        sync: false        # mailto:you@yourdomain.com or a booking link

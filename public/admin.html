@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Admin – Pagelift</title>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Permanent+Marker&family=Kalam:wght@700&family=Suez+One&display=swap" rel="stylesheet">
+  <link rel="icon" href="/brand/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin: 24px 0; }
+    .kpi { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-md); padding: 16px; }
+    .kpi b { display: block; font-size: 28px; font-weight: 600; }
+    .kpi span { font-size: 14px; color: var(--text-muted); }
+    h2 { font-family: var(--font); font-size: 20px; font-weight: 600; margin: 32px 0 12px; }
+    .table-simple td { font-size: 14px; }
+    .mono { direction: ltr; font-family: ui-monospace, monospace; font-size: 12px; }
+  </style>
+</head>
+<body>
+  <header class="site-header"><div class="wrap"><a class="logo" href="/"><img class="logo-img" src="/brand/logo.svg" alt="Pagelift" width="208" height="58"></a>
+    <label>Period <select id="days"><option value="1">1 day</option><option value="7">7 days</option><option value="30" selected>30 days</option><option value="365">1 year</option></select></label>
+  </div></header>
+  <main class="wrap" style="padding-bottom:60px">
+    <div class="kpis" id="kpis"></div>
+    <h2>Generation engines (tried in this order)</h2>
+    <div class="rfield" style="overflow-x:auto"><table class="table-simple" id="providers"></table></div>
+    <h2>Orders and payments</h2>
+    <div class="rfield" style="overflow-x:auto"><table class="table-simple" id="orders"></table></div>
+    <h2>Generations</h2>
+    <div class="rfield" style="overflow-x:auto"><table class="table-simple" id="gens"></table></div>
+  </main>
+  <script>
+    const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+    const pill = (s) => `<span class="status-pill ${s === 'paid' ? 'ok' : s === 'refunded' || s === 'failed' ? 'bad' : ''}">${esc(s)}</span>`;
+    async function load() {
+      const d = await (await fetch('/admin/api/data?days=' + document.getElementById('days').value)).json();
+      const f = d.funnel, pct = (a, b) => (b ? Math.round((a / b) * 100) + '%' : '–');
+      const paidSum = d.orders.filter((o) => o.status === 'paid').reduce((s, o) => s + o.amount_agorot, 0) / 100;
+      document.getElementById('kpis').innerHTML = [
+        ['Page views', f.page_view || 0],
+        ['Previews', `${f.preview_created || 0} <small>(${pct(f.preview_created, f.page_view)})</small>`],
+        ['Checkout clicks', `${f.checkout_click || 0} <small>(${pct(f.checkout_click, f.preview_created)})</small>`],
+        ['Payments completed', `${f.payment_completed || 0} <small>(${pct(f.payment_completed, f.checkout_click)})</small>`],
+        ['Revenue (active orders)', '$' + paidSum.toLocaleString('en-US', { minimumFractionDigits: 2 })],
+      ].map(([l, v]) => `<div class="kpi"><b>${v}</b><span>${l}</span></div>`).join('');
+
+      document.getElementById('providers').innerHTML = '<thead><tr><th>Engine</th><th>Model</th><th>Key set</th><th>Used today</th><th>Daily budget</th></tr></thead><tbody>' +
+        (d.providers || []).map((p) => `<tr><td>${esc(p.name)}</td><td class="mono">${esc(p.model || '')}</td><td>${pill(p.configured ? 'paid' : 'missing').replace('>paid<', '>yes<').replace('>missing<', '>no<')}</td><td>${p.usedToday}</td><td>${p.dailyLimit ?? '–'}</td></tr>`).join('') + '</tbody>';
+      const extra = [['Sample result views', f.sample_view || 0], ['Slider used', f.compare_used || 0], ['Founding clicks', f.founding_click || 0]];
+      document.getElementById('kpis').insertAdjacentHTML('beforeend', extra.map(([l, v]) => `<div class="kpi"><b>${v}</b><span>${l}</span></div>`).join(''));
+
+      document.getElementById('orders').innerHTML = `<thead><tr><th>Date</th><th>Order</th><th>Plan</th><th>Amount</th><th>Email</th><th>Status</th><th>Batch</th><th>Transaction</th><th></th></tr></thead><tbody>` +
+        d.orders.map((o) => `<tr><td>${esc(o.created_at)}</td><td class="mono"><a href="/r/${esc(o.access_token)}" target="_blank">${esc(o.id)}</a></td><td>${esc(o.plan)}</td>
+          <td>$${(o.amount_agorot / 100).toFixed(2)}</td><td>${esc(o.email)}</td><td>${pill(o.status)}</td><td>${esc(o.batch_status || '')} ${esc(o.batch_note || '')}</td>
+          <td class="mono">${esc(o.provider_txn_id || '')}</td>
+          <td>${o.status === 'paid' ? `<button class="btn btn-ghost btn-sm" data-refund="${esc(o.id)}">Mark refunded</button>` : ''}</td></tr>`).join('') + '</tbody>';
+
+      document.getElementById('gens').innerHTML = `<thead><tr><th>Date</th><th>ID</th><th>Source</th><th>New title</th><th>Email</th><th>Status</th></tr></thead><tbody>` +
+        d.generations.map((g) => `<tr><td>${esc(g.created_at)}</td><td class="mono">${esc(g.id)}</td>
+          <td>${g.source_url ? `<a href="${esc(g.source_url)}" target="_blank" rel="noopener">${esc(g.source_kind)}</a>` : esc(g.source_kind)}</td>
+          <td>${esc(g.title)}</td><td>${esc(g.email || '')}</td><td>${pill(g.status)}</td></tr>`).join('') + '</tbody>';
+    }
+    document.getElementById('days').addEventListener('change', load);
+    document.addEventListener('click', async (e) => {
+      const b = e.target.closest('[data-refund]');
+      if (!b || !confirm('Mark this order as refunded? The refund itself is made in the card processor\'s dashboard.')) return;
+      const r = await fetch('/admin/api/refund/' + b.dataset.refund, { method: 'POST' });
+      alert((await r.json()).note || 'Error');
+      load();
+    });
+    load();
+  </script>
+</body>
+</html>

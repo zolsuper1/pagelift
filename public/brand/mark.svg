@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="Pagelift">
+  <defs><clipPath id="k-clip"><circle cx="60" cy="60" r="34"/></clipPath>
+    <mask id="k-gap" maskUnits="userSpaceOnUse" x="0" y="0" width="120" height="120">
+      <rect width="120" height="120" fill="#fff"/>
+      <path d="M106 50 C 106 68, 14 82, 14 70" transform="rotate(-14 60 60)" fill="none" stroke="#000" stroke-width="12" stroke-linecap="round"/>
+    </mask></defs>
+  <circle cx="60" cy="60" r="58" fill="#17123b"/>
+  <path d="M14 70 C 14 52, 106 38, 106 50" transform="rotate(-14 60 60)" fill="none" stroke="#fff1dc" stroke-width="5" stroke-linecap="round"/>
+  <g mask="url(#k-gap)"><g clip-path="url(#k-clip)"><circle cx="60" cy="60" r="34" fill="#ffb547"/><rect x="20" y="52" width="80" height="8" fill="#ff7a2f"/><rect x="20" y="63" width="80" height="7" fill="#ff4f7b"/><rect x="20" y="73" width="80" height="6" fill="#9b4dff"/><rect x="20" y="82" width="80" height="5" fill="#3fd6c6"/></g></g>
+  <path d="M106 50 C 106 68, 14 82, 14 70" transform="rotate(-14 60 60)" fill="none" stroke="#fff1dc" stroke-width="5" stroke-linecap="round"/>
+  <g fill="#fff1dc"><path transform="translate(24 25) scale(.82) translate(-92 -31)" d="M92 20 l3 8 8 3 -8 3 -3 8 -3 -8 -8 -3 8 -3z"/></g>
+</svg>

@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pagelift – Product pages that actually sell, rewritten in a minute</title>
+  <meta name="description" content="Paste a product link from your Shopify or WooCommerce store and get a search-friendly title, intro, spec bullets, meta description and image alt text. Written from your facts, never made up.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Permanent+Marker&family=Kalam:wght@700&family=Suez+One&display=swap" rel="stylesheet">
+  <link rel="icon" href="/brand/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/clients.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="logo" href="/"><img class="logo-img" src="/brand/logo.svg" alt="Pagelift" width="208" height="58"></a>
+      <nav class="nav" aria-label="Main">
+        <a href="#compare">Before &amp; after</a>
+        <a href="#how">How it works</a>
+        <a href="#pricing">Pricing</a>
+        <a class="nav-cta" href="#top">Try it<span class="hide-sm"> free</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero" id="top">
+      <div class="planet" aria-hidden="true"></div>
+      <div class="planet-ring" aria-hidden="true"></div>
+      <div class="wrap">
+        <div class="hero-grid">
+          <div>
+            <h1><span class="line">Product pages</span><span class="line">that actually sell,</span><span class="line"><span class="hl">in a minute.</span></span></h1>
+            <p class="lede">Paste a product link and get a search-friendly title, an intro, spec bullets, a meta description and alt text for every image. Written from your facts, never made up. Not happy? Full refund.</p>
+
+            <form class="url-card" id="preview-form" novalidate>
+              <div class="url-row">
+                <label class="sr-only" for="url">Paste a link to a product in your store</label>
+                <input id="url" name="url" type="url" inputmode="url" autocomplete="off" placeholder="yourstore.com/products/…">
+                <button class="btn btn-accent" type="submit" id="preview-btn">Show me the new version</button>
+              </div>
+              <div class="manual" id="manual" hidden>
+                <div class="field">
+                  <label for="m-title">Current product title</label>
+                  <input id="m-title" maxlength="300">
+                </div>
+                <div class="field">
+                  <label for="m-desc">Current description</label>
+                  <textarea id="m-desc" maxlength="6000" placeholder="Paste the description as it is today, including sizes, materials and price if you have them"></textarea>
+                </div>
+              </div>
+              <div class="turnstile" id="turnstile"></div>
+            </form>
+            <div class="below-form">
+              <button type="button" class="linkish" id="manual-toggle" aria-controls="manual" aria-expanded="false">or paste the text by hand</button>
+              <span>3 free previews a day. No sign-up, no card.</span>
+              <a class="sample-link" href="/sample" target="_blank" rel="noopener" data-event="sample_view">See a full sample result</a>
+            </div>
+            <p class="works-with">Works with <b>Shopify</b>, <b>WooCommerce</b> and any store with a public product page.</p>
+            <div id="status" role="status" aria-live="polite"></div>
+          </div>
+
+          <!-- Specimen: what the rewrite does to one field -->
+          <figure class="specimen" aria-label="Example: a supplier title next to the new title">
+            <span class="tape tape-a" aria-hidden="true"></span>
+            <span class="tape tape-b" aria-hidden="true"></span>
+            <figcaption class="specimen-bar">Sample product: earrings from a jewelry store</figcaption>
+            <div class="spec-row">
+              <div class="spec-key"><span>Title</span><span class="counter">41/60</span></div>
+              <span class="old">Women Fashion Hoop Earrings Gold Plated 30mm 2024 New Hot</span>
+              <span class="new"><mark>Gold-Plated Hoop Earrings for Women, 30mm</mark></span>
+              <p class="note"><span class="note-num">1</span>Search term up front, under 60 characters</p>
+            </div>
+            <div class="spec-row">
+              <div class="spec-key"><span>Intro</span></div>
+              <span class="new-sm">A thin 30mm hoop that works at the office and on a night out. Gold-plated, with a click closure.</span>
+              <p class="note"><span class="note-num">2</span>Only what your page says. No made-up specs</p>
+            </div>
+            <div class="spec-row">
+              <div class="spec-key"><span>Missing from the page</span></div>
+              <span class="new-sm">How thick is the plating? Are they nickel-free?</span>
+              <p class="note"><span class="note-num">3</span>What shoppers will ask. Worth adding</p>
+            </div>
+          </figure>
+        </div>
+
+        <!-- Preview result -->
+        <article class="preview" id="preview" hidden aria-live="polite">
+          <div class="preview-doc">
+            <div class="pv-head">
+              <div class="pv-thumb" id="pv-thumb" aria-hidden="true"></div>
+              <div>
+                <p class="pv-kicker">Your product, rewritten</p>
+                <p class="pv-source" id="pv-source"></p>
+              </div>
+            </div>
+
+            <div class="pv-compare">
+              <p class="label">Title</p>
+              <p class="pv-before"><span class="pv-tag">Now</span><span id="pv-old-title"></span></p>
+              <h2 class="new-title"><span class="pv-tag pv-tag-new">New</span><span id="pv-title"></span></h2>
+            </div>
+            <div class="pv-compare">
+              <p class="label">Intro</p>
+              <p class="pv-before" id="pv-old-desc-row"><span class="pv-tag">Now</span><span id="pv-old-desc"></span></p>
+              <p class="intro"><span class="pv-tag pv-tag-new">New</span><span id="pv-intro"></span></p>
+              <div aria-hidden="true"><div class="ph-line" style="width:92%"></div><div class="ph-line" style="width:64%"></div></div>
+            </div>
+
+            <ul class="pv-checks" id="pv-checks" aria-label="Checks the full page passes"></ul>
+            <div class="doc-row">
+              <p class="label" id="pv-bullets-label">Spec bullets</p>
+              <div id="pv-bullets" aria-hidden="true"></div>
+            </div>
+            <div class="doc-row">
+              <p class="label">Meta description for Google</p>
+              <div aria-hidden="true"><div class="ph-line" style="width:96%"></div><div class="ph-line" style="width:52%"></div></div>
+            </div>
+            <div class="doc-row">
+              <p class="label" id="pv-alts-label">Image alt text</p>
+              <div id="pv-alts" aria-hidden="true"></div>
+            </div>
+            <p class="lock-note"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>The rest of the page unlocks after payment</p>
+          </div>
+
+          <form class="unlock sheet" id="unlock-form" novalidate>
+            <span class="tape tape-top" aria-hidden="true"></span>
+            <h3>The full page, <span data-price="single">$19</span></h3>
+            <p>Every field with a copy button, a CSV to import into Shopify, and a permanent link by email.</p>
+            <div class="unlock-row">
+              <label class="sr-only" for="unlock-email">Email for your result</label>
+              <input id="unlock-email" type="email" autocomplete="email" placeholder="you@yourstore.com" required>
+              <button class="btn btn-accent" type="submit" id="unlock-btn">Get the full page</button>
+            </div>
+            <span class="fine">Secure checkout by Stripe. Not happy? Full refund.</span>
+            <a class="sample-link" href="/sample" target="_blank" rel="noopener" data-event="sample_view">See a full sample result first</a>
+          </form>
+        </article>
+      </div>
+    </section>
+
+    <!-- Before / after slider: the product page itself -->
+    <section class="block compare-sec" id="compare">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Slide across the page</h2>
+          <p>Same product, same facts. On the left, what the supplier wrote. On the right, what Pagelift wrote.</p>
+        </div>
+
+        <div class="compare" id="compare-stage" data-pos="50">
+          <span class="compare-tag tag-before">Before</span>
+          <span class="compare-tag tag-after">After</span>
+
+          <!-- BEFORE: supplier copy -->
+          <div class="pp pp-before" aria-label="Before: the supplier's product page">
+            <div class="pp-media" aria-hidden="true">
+              <svg viewBox="0 0 200 200"><g fill="none" stroke="#17123b" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M100 30c-9 14-10 24 0 32 10-8 9-18 0-32z" fill="#ffb547"/><path d="M100 62v14"/><path d="M58 80h84l-6 96H64z" fill="#fff1dc"/><path d="M62 112h76" stroke-dasharray="6 7"/><path d="M58 80c0-6 84-6 84 0"/></g><text x="100" y="146" text-anchor="middle" font-family="Kalam, cursive" font-weight="700" font-size="18" fill="#17123b">soy</text></svg>
+            </div>
+            <div class="pp-info">
+              <p class="pp-store">yourstore.com</p>
+              <h3 class="pp-title">Scented Candle Soy Wax Aromatherapy Candles Gift Set for Women Relaxing Stress Relief Hot Sale 2024</h3>
+              <p class="pp-price">$28.00</p>
+              <p class="pp-desc">Our candle is the BEST quality candle!! perfect gift for women, relieve stress and anxiety and help you sleep. soy wax, cotton wick, 8oz, burn 45 hours, lavender cedar scent. HOT SALE!!!</p>
+              <span class="pp-cart">Add to cart</span>
+            </div>
+          </div>
+
+          <!-- AFTER: Pagelift copy (clipped by the slider) -->
+          <div class="pp pp-after" aria-label="After: the page rewritten by Pagelift">
+            <div class="pp-media" aria-hidden="true">
+              <svg viewBox="0 0 200 200"><g fill="none" stroke="#17123b" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M100 30c-9 14-10 24 0 32 10-8 9-18 0-32z" fill="#ffb547"/><path d="M100 62v14"/><path d="M58 80h84l-6 96H64z" fill="#fff1dc"/><path d="M62 112h76" stroke-dasharray="6 7"/><path d="M58 80c0-6 84-6 84 0"/></g><text x="100" y="146" text-anchor="middle" font-family="Kalam, cursive" font-weight="700" font-size="18" fill="#17123b">soy</text></svg>
+            </div>
+            <div class="pp-info">
+              <p class="pp-store">yourstore.com</p>
+              <h3 class="pp-title">Lavender &amp; Cedar Soy Candle, 8 oz – 45-Hour Burn</h3>
+              <p class="pp-price">$28.00</p>
+              <p class="pp-desc">A soy wax candle with a cotton wick and a lavender-and-cedar scent. Light it for a slow evening at home. One 8 oz jar burns for about 45 hours.</p>
+              <ul class="pp-bullets"><li>8 oz soy wax</li><li>Cotton wick</li><li>About 45 hours of burn time</li><li>Scent: lavender and cedar</li></ul>
+              <span class="pp-cart">Add to cart</span>
+              <p class="note pp-note"><span class="note-num">!</span>"Relieves stress and helps you sleep" is gone. That's a health claim.</p>
+            </div>
+          </div>
+
+          <div class="compare-handle" aria-hidden="true">
+            <span class="compare-knob"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l-6 6 6 6M15 6l6 6-6 6"/></svg></span>
+          </div>
+          <label class="sr-only" for="compare-range">Show more of the rewritten page</label>
+          <input class="compare-range" id="compare-range" type="range" min="0" max="100" value="50">
+        </div>
+        <p class="placeholder-note">Illustrative example. Move your mouse across the page, or drag the handle.</p>
+      </div>
+    </section>
+
+    <!-- Why: the principles behind the rewrite (the outcome, not the recipe) -->
+    <section class="block why-sec" id="why" aria-labelledby="why-title">
+      <div class="wrap">
+        <div class="section-head">
+          <h2 id="why-title">Why we cut "BEST QUALITY!!!"</h2>
+          <p>Three rules behind every page we write, and what each one does for your store.</p>
+        </div>
+        <ul class="why-list">
+          <li class="why-item">
+            <p class="why-edit"><s>BEST quality candle!! perfect gift</s><span class="why-arrow" aria-hidden="true"></span><ins>8 oz soy wax, about 45 hours of burn time</ins></p>
+            <h3>Specifics sell, hype doesn't</h3>
+            <p>Shoppers skim past "best" and "perfect" because every listing says it. A size, a material or a burn time answers the question they came with, so they don't have to message you or guess.</p>
+          </li>
+          <li class="why-item">
+            <p class="why-edit"><s>relieves stress and helps you sleep</s><span class="why-arrow" aria-hidden="true"></span><ins class="why-cut">cut</ins></p>
+            <h3>Nothing made up</h3>
+            <p>A spec that isn't true turns into a return. A health claim you can't back up can get a listing pulled. We only write what's already on your page, and tell you what's missing instead of filling the gap.</p>
+          </li>
+          <li class="why-item">
+            <p class="why-edit"><s>Scented Candle Soy Wax Gift Set Hot Sale 2024</s><span class="why-arrow" aria-hidden="true"></span><ins>Lavender &amp; Cedar Soy Candle, 8 oz</ins></p>
+            <h3>Written for search</h3>
+            <p>The words a shopper actually types come first, and the title is written to fit in about 60 characters, before Google cuts it off. You also get the meta description and image alt text, the fields search engines read.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- How it works -->
+    <section class="block" id="how">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>How it works</h2>
+          <p>No app to install, no store access, no passwords.</p>
+        </div>
+        <ol class="steps">
+          <li class="step"><div class="step-num">1</div><h3>Paste a link</h3><p>A link to a product page in your store. If we can't read your store, paste the title and description by hand.</p></li>
+          <li class="step"><div class="step-num">2</div><h3>See a free preview</h3><p>The new title and opening sentence show up free, so you see the direction before you pay.</p></li>
+          <li class="step"><div class="step-num">3</div><h3>Pay and get it all</h3><p>Every field with a copy button, a CSV to import into Shopify, and a permanent link by email.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Reviews carousel: hidden until /reviews.json has real reviews -->
+    <section class="block reviews-sec" id="reviews" hidden aria-labelledby="reviews-title">
+      <div class="wrap">
+        <div class="section-head reviews-head">
+          <h2 id="reviews-title">What store owners say</h2>
+          <div class="carousel-nav">
+            <button class="btn btn-ghost btn-sm" type="button" id="reviews-prev" aria-label="Previous review"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button>
+            <button class="btn btn-ghost btn-sm" type="button" id="reviews-next" aria-label="Next review"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+          </div>
+        </div>
+        <ul class="reviews-track" id="reviews-track" aria-roledescription="carousel" aria-label="Reviews"></ul>
+        <p class="placeholder-note" id="reviews-sample-note" hidden>Sample reviews for layout only. They show only with ?reviews=sample and never on the live page.</p>
+      </div>
+    </section>
+
+    <!-- Founding stores: the honest way to earn the first reviews and logos -->
+    <section class="founding" id="founding" aria-labelledby="founding-title">
+      <div class="wrap">
+        <div class="founding-sheet sheet">
+          <span class="tape tape-top" aria-hidden="true"></span>
+          <div>
+            <h2 id="founding-title">Be one of our first 10 stores</h2>
+            <p>Get <b>3 product pages free</b>. In return, tell us honestly how it went, and if you liked it, let us show your review and your store's logo here.</p>
+          </div>
+          <a class="btn btn-accent" id="founding-link" href="mailto:hello@example.com" data-event="founding_click">Claim a founding spot</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="block" id="pricing">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Plans and pricing</h2>
+          <p>Pay once per package. Subscribe only if you add products every month.</p>
+        </div>
+        <table class="pricing">
+          <thead><tr><th scope="col">Plan</th><th scope="col">What you get</th><th scope="col">Price</th><th scope="col"><span class="sr-only">Action</span></th></tr></thead>
+          <tbody>
+            <tr>
+              <td><div class="plan-name">Single product</div></td>
+              <td class="plan-desc">One full product page, from a link or from text</td>
+              <td class="price" data-price="single">$19</td>
+              <td><a class="btn btn-ghost btn-sm" href="#top">Start with a free preview</a></td>
+            </tr>
+            <tr class="featured">
+              <td><div class="plan-name">Pilot</div></td>
+              <td class="plan-desc">Up to 20 products. Upload a CSV export from your store and get a file ready to import</td>
+              <td class="price"><span data-price="pilot">$149</span><small class="per">$7.45 per product</small></td>
+              <td><button class="btn btn-accent btn-sm" data-plan="pilot">Buy the pilot</button></td>
+            </tr>
+            <tr>
+              <td><div class="plan-name">Catalog</div></td>
+              <td class="plan-desc">Up to 100 products, same CSV upload</td>
+              <td class="price"><span data-price="catalog">$449</span><small class="per">$4.49 per product</small></td>
+              <td><button class="btn btn-ghost btn-sm" data-plan="catalog">Buy the catalog</button></td>
+            </tr>
+            <tr>
+              <td><div class="plan-name">Monthly</div></td>
+              <td class="plan-desc">New products every month, plus seasonal and sale updates. We agree the volume together</td>
+              <td class="price">$249<small> /mo</small></td>
+              <td><a class="btn btn-ghost btn-sm" id="contact-link" href="mailto:hello@example.com">Talk to us</a></td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="guarantee">Not happy with the result? Email us and get a full refund.</p>
+      </div>
+    </section>
+
+    <!-- Client logos: hidden until /clients.json lists real clients who agreed to be shown -->
+    <section class="clients-sec" id="clients" hidden aria-labelledby="clients-title" data-impeccable-ignore="marquee">
+      <div class="wrap"><p class="clients-title" id="clients-title">Stores that use Pagelift</p></div>
+      <div class="marquee"><ul class="marquee-track" id="clients-track"></ul></div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="block" id="faq">
+      <div class="wrap faq-layout">
+        <h2>Questions</h2>
+        <div class="faq">
+          <details>
+            <summary>Why not just use ChatGPT?</summary>
+            <p>You can. For one product, with time to spare, it works. Here's what you'd be doing by hand each time: copying the product details in, checking that nothing got invented, trimming the title to fit Google, writing alt text for every image, and pasting each field back. For 20 or 100 products, add keeping the tone consistent and building an import file. Pagelift reads your page itself, writes only from your own details, shows every field's character count against its limit, and hands you a CSV ready for Shopify. And if you don't like it, you get your money back.</p>
+          </details>
+          <details>
+            <summary>Will it sound like AI?</summary>
+            <p>It's written in plain American English, without empty phrases like "perfect" or "premium quality". It never invents sizes, materials or prices: it only writes from what's on your page. When shoppers would look for something that's missing, you get a list of what to add.</p>
+          </details>
+          <details>
+            <summary>What about SEO?</summary>
+            <p>Titles stay under 60 characters and lead with the main search term. You also get a meta description under 155 characters and alt text for every image. Those are the fields Google reads. No ranking promises, but the basics will be right.</p>
+          </details>
+          <details>
+            <summary>How do I get it into my store?</summary>
+            <p>Shopify: download the CSV from your result page, go to Products, then Import, and choose to overwrite products with matching handles. WooCommerce, or any single product: copy each field with one click and paste it into the product editor.</p>
+          </details>
+          <details>
+            <summary>What if I don't like it?</summary>
+            <p>Email us and get a full refund, no questions asked. The details are in the <a href="/legal/refunds">refund policy</a>.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-band">
+      <div class="horizon-planet" aria-hidden="true"></div>
+      <div class="wrap">
+        <div>
+          <h2>Try it on one of your products</h2>
+          <p>The preview is free and takes less than a minute.</p>
+        </div>
+        <a class="btn btn-accent" href="#top">Paste a link</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <nav aria-label="Legal">
+        <a href="/legal/terms">Terms of use</a>
+        <a href="/legal/privacy">Privacy policy</a>
+        <a href="/legal/refunds">Refund policy</a>
+        <a href="/legal/business">Company details</a>
+      </nav>
+      <span>© <span id="year"></span> Pagelift</span>
+    </div>
+  </footer>
+
+  <!-- Checkout modal (pilot / catalog) -->
+  <div class="modal" id="plan-modal" hidden role="dialog" aria-modal="true" aria-labelledby="plan-modal-title">
+    <form class="modal-card sheet" id="plan-form" novalidate>
+      <span class="tape tape-top" aria-hidden="true"></span>
+      <h3 id="plan-modal-title"></h3>
+      <p>After payment you'll land on the page for uploading your products CSV. We'll email you the link too.</p>
+      <div class="field">
+        <label for="plan-email">Email</label>
+        <input id="plan-email" type="email" autocomplete="email" required>
+      </div>
+      <p class="fine">Secure checkout by Stripe. Not happy with the result? Full refund.</p>
+      <div id="plan-status" role="status" aria-live="polite"></div>
+      <div class="modal-actions">
+        <button class="btn btn-accent" type="submit" id="plan-pay">Go to checkout</button>
+        <button class="btn btn-ghost" type="button" id="plan-cancel">Cancel</button>
+      </div>
+    </form>
+  </div>
+
+  <script src="/app.js" defer></script>
+  <script src="/sections.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="Pagelift">
+  <defs>
+    <clipPath id="f-clip"><circle cx="60" cy="60" r="42"/></clipPath>
+    <mask id="f-gap" maskUnits="userSpaceOnUse" x="0" y="0" width="120" height="120"><rect width="120" height="120" fill="#fff"/>
+      <path d="M112 50 C 112 72, 8 86, 8 70" transform="rotate(-14 60 60)" fill="none" stroke="#000" stroke-width="17" stroke-linecap="round"/></mask>
+  </defs>
+  <circle cx="60" cy="60" r="60" fill="#17123b"/>
+  <path d="M8 70 C 8 50, 112 36, 112 50" transform="rotate(-14 60 60)" fill="none" stroke="#fff1dc" stroke-width="8" stroke-linecap="round"/>
+  <g mask="url(#f-gap)"><g clip-path="url(#f-clip)">
+    <circle cx="60" cy="60" r="42" fill="#ffb547"/>
+    <rect x="10" y="60" width="100" height="11" fill="#ff7a2f"/>
+    <rect x="10" y="76" width="100" height="10" fill="#ff4f7b"/>
+    <rect x="10" y="91" width="100" height="11" fill="#9b4dff"/>
+  </g></g>
+  <path d="M112 50 C 112 72, 8 86, 8 70" transform="rotate(-14 60 60)" fill="none" stroke="#fff1dc" stroke-width="8" stroke-linecap="round"/>
+</svg>

@@ -1,0 +1,20 @@
+[
+  {
+    "sample": true,
+    "quote": "Sample review for layout only. Replace with a real customer's words, with their permission.",
+    "name": "Sample Reviewer",
+    "store": "sample-store.example"
+  },
+  {
+    "sample": true,
+    "quote": "Second sample. Real reviews need \"sample\": false (or no sample field), the person's name and their store.",
+    "name": "Sample Reviewer",
+    "store": "another-store.example"
+  },
+  {
+    "sample": true,
+    "quote": "Third sample. Keep quotes short and specific: what changed for their store after the rewrite.",
+    "name": "Sample Reviewer",
+    "store": "third-store.example"
+  }
+]

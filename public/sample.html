@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sample result – Pagelift</title>
+  <meta name="description" content="What you get from Pagelift for one product: title, intro, spec bullets, meta description, image alt text and missing-info questions, ready to paste or import.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Permanent+Marker&family=Kalam:wght@700&family=Suez+One&display=swap" rel="stylesheet">
+  <link rel="icon" href="/brand/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="logo" href="/"><img class="logo-img" src="/brand/logo.svg" alt="Pagelift" width="208" height="58"></a>
+      <nav class="nav" aria-label="Main"><a class="nav-cta" href="/#top">Try it<span class="hide-sm"> on your product</span></a></nav>
+    </div>
+  </header>
+  <main>
+    <div class="result-head">
+      <div class="wrap">
+        <p class="sample-banner">Sample result. This is exactly what a paying customer gets for one product.</p>
+        <h1>Lavender &amp; Cedar Soy Candle</h1>
+        <p class="lede" style="margin:0">Written from the supplier's own facts: 8 oz, soy wax, cotton wick, 45-hour burn, lavender and cedar. Nothing added.</p>
+      </div>
+    </div>
+    <div class="wrap">
+      <div class="toolbar" style="margin-bottom:18px">
+        <span class="btn btn-accent" aria-disabled="true" title="On a real result this downloads your CSV">Download CSV for Shopify</span>
+        <a class="btn btn-ghost" href="/#top">Try it on your product, free</a>
+      </div>
+      <div class="fields">
+        <section class="rfield"><div class="rfield-top"><h2>Title</h2><div><span class="count">48/60 characters</span><button class="btn btn-ghost btn-sm copy-btn" data-copy="Lavender &amp; Cedar Soy Candle, 8 oz – 45-Hour Burn">Copy</button></div></div>
+          <div class="val">Lavender &amp; Cedar Soy Candle, 8 oz – 45-Hour Burn</div></section>
+        <section class="rfield"><div class="rfield-top"><h2>Intro</h2><button class="btn btn-ghost btn-sm copy-btn" data-copy="A soy wax candle with a cotton wick and a lavender-and-cedar scent. Light it for a slow evening at home. One 8 oz jar burns for about 45 hours.">Copy</button></div>
+          <div class="val">A soy wax candle with a cotton wick and a lavender-and-cedar scent. Light it for a slow evening at home. One 8 oz jar burns for about 45 hours.</div></section>
+        <section class="rfield"><div class="rfield-top"><h2>Spec bullets</h2><button class="btn btn-ghost btn-sm copy-btn" data-copy="• 8 oz soy wax&#10;• Cotton wick&#10;• About 45 hours of burn time&#10;• Scent: lavender and cedar">Copy</button></div>
+          <ul><li>8 oz soy wax</li><li>Cotton wick</li><li>About 45 hours of burn time</li><li>Scent: lavender and cedar</li></ul></section>
+        <section class="rfield"><div class="rfield-top"><h2>Meta description</h2><div><span class="count">90/155 characters</span><button class="btn btn-ghost btn-sm copy-btn" data-copy="Lavender and cedar soy candle in an 8 oz jar with a cotton wick. Burns for about 45 hours.">Copy</button></div></div>
+          <div class="val">Lavender and cedar soy candle in an 8 oz jar with a cotton wick. Burns for about 45 hours.</div></section>
+        <section class="rfield"><div class="rfield-top"><h2>Image alt text</h2></div>
+          <div class="alt-row"><span>Lavender and cedar soy candle in a clear 8 oz glass jar, lit</span><button class="btn btn-ghost btn-sm copy-btn" data-copy="Lavender and cedar soy candle in a clear 8 oz glass jar, lit">Copy</button></div>
+          <div class="alt-row"><span>Close-up of the cotton wick and soy wax surface</span><button class="btn btn-ghost btn-sm copy-btn" data-copy="Close-up of the cotton wick and soy wax surface">Copy</button></div></section>
+        <section class="rfield"><div class="rfield-top"><h2>Missing info shoppers look for</h2></div>
+          <ul><li>Is the jar reusable or recyclable?</li><li>Are the scents from essential oils or fragrance oils?</li><li>What are the jar's dimensions?</li></ul>
+          <p class="fine" style="margin:10px 0 0">Worth adding the answers to your description. We didn't write them because they weren't in the supplier's data.</p></section>
+        <section class="rfield removed"><div class="rfield-top"><h2>What we took out, and why</h2></div>
+          <ul><li>"Relieve stress and anxiety and help you sleep": a health claim. The FTC requires proof for those, and the source had none.</li><li>"BEST quality", "perfect gift", "HOT SALE!!!": empty claims shoppers skip past.</li></ul></section>
+      </div>
+    </div>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <nav aria-label="Legal">
+        <a href="/legal/terms">Terms of use</a><a href="/legal/privacy">Privacy policy</a><a href="/legal/refunds">Refund policy</a><a href="/legal/business">Company details</a>
+      </nav>
+    </div>
+  </footer>
+  <script>
+    document.addEventListener('click', async (e) => {
+      const b = e.target.closest('[data-copy]');
+      if (!b) return;
+      try { await navigator.clipboard.writeText(b.dataset.copy); } catch {}
+      const old = b.textContent; b.textContent = 'Copied'; setTimeout(() => (b.textContent = old), 1500);
+    });
+  </script>
+</body>
+</html>
