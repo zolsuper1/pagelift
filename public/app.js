@@ -121,15 +121,53 @@
     $('#pv-title').textContent = r.preview.title;
     $('#pv-intro').textContent = r.preview.intro_first;
     $('#pv-checks').innerHTML = (r.checks || []).map((c) => `<li class="${c.ok ? 'ok' : 'warn'}"><span class="mark" aria-hidden="true"></span><span>${escapeHtml(c.label)}</span><b>${escapeHtml(c.detail)}</b></li>`).join('');
-    // Placeholder bars only: the locked text is not in the page.
-    $('#pv-bullets').innerHTML = lines(Math.max(r.locked.bullets, 3), [88, 74, 81, 66, 79]);
-    $('#pv-bullets-label').textContent = `Spec bullets (${r.locked.bullets})`;
-    const alts = r.locked.alts;
-    $('#pv-alts-label').textContent = alts ? `Image alt text (${alts})` : 'Image alt text';
-    $('#pv-alts').innerHTML = alts ? lines(Math.min(alts, 4), [60, 72, 54, 66]) : '<p class="fine">No images found on the page</p>';
+    // What the full page contains, as counts (the locked text itself never reaches the browser).
+    const L = r.locked || {};
+    const plural = (n, one, many) => `${n} ${n === 1 ? one : many}`;
+    const included = [
+      'The full intro, 2–3 sentences',
+      L.bullets ? plural(L.bullets, 'spec bullet', 'spec bullets') : null,
+      L.meta !== false ? 'A meta description for Google' : null,
+      L.alts ? `Alt text for ${plural(L.alts, 'image', 'images')}` : null,
+      L.missing_info ? plural(L.missing_info, 'question shoppers ask that your page doesn\'t answer yet', 'questions shoppers ask that your page doesn\'t answer yet') : null,
+      'A CSV ready to import into Shopify',
+    ].filter(Boolean);
+    $('#pv-included').innerHTML = included.map((t) => `<li>${escapeHtml(t)}</li>`).join('');
+    const rem = $('#pv-remaining');
+    rem.textContent = typeof r.remaining === 'number'
+      ? (r.remaining > 0 ? `You have ${r.remaining} of 3 free previews left today. Try another product.` : 'That was your last free preview for today. More tomorrow.')
+      : '';
+    $('#save-status').textContent = "We'll send a link back to it. No account needed.";
     const pv = $('#preview');
     pv.hidden = false;
     pv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  // "Not ready yet": email the visitor a link back to this preview.
+  $('#save-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = $('#save-email').value.trim();
+    const st = $('#save-status');
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { st.textContent = 'Enter a valid email and we\'ll send the link.'; return; }
+    const btn = $('#save-btn');
+    busy(btn, true, 'Sending…');
+    try {
+      await post(`/api/preview/${encodeURIComponent(state.genId)}/save`, { email });
+      st.textContent = `Sent to ${email}. The link opens this preview again.`;
+      $('#save-email').value = '';
+    } catch (err) {
+      st.textContent = err.message;
+    } finally {
+      busy(btn, false);
+    }
+  });
+
+  // Opening a saved preview from the email link: /?p=<id>
+  const savedId = new URLSearchParams(location.search).get('p');
+  if (savedId) {
+    fetch(`/api/preview/${encodeURIComponent(savedId)}`).then((r) => r.json().then((j) => ({ ok: r.ok, j }))).then(({ ok, j }) => {
+      if (ok) showPreview(j); else notice($('#status'), j.error || 'This preview is no longer available.');
+    }).catch(() => {});
   }
 
   // Unlock single product

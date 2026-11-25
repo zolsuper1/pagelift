@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Pagelift – Product pages that actually sell, rewritten in a minute</title>
+  <title>Pagelift – Product pages that sell, rewritten in a minute</title>
   <meta name="description" content="Paste a product link from your Shopify or WooCommerce store and get a search-friendly title, intro, spec bullets, meta description and image alt text. Written from your facts, never made up.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -33,7 +33,7 @@
       <div class="wrap">
         <div class="hero-grid">
           <div>
-            <h1><span class="line">Product pages</span><span class="line">that actually sell,</span><span class="line"><span class="hl">in a minute.</span></span></h1>
+            <h1><span class="line">Product pages</span><span class="line">that sell,</span><span class="line"><span class="hl">in a minute.</span></span></h1>
             <p class="lede">Paste a product link and get a search-friendly title, an intro, spec bullets, a meta description and alt text for every image. Written from your facts, never made up. Not happy? Full refund.</p>
 
             <form class="url-card" id="preview-form" novalidate>
@@ -56,7 +56,7 @@
             </form>
             <div class="below-form">
               <button type="button" class="linkish" id="manual-toggle" aria-controls="manual" aria-expanded="false">or paste the text by hand</button>
-              <span>3 free previews a day. No sign-up, no card.</span>
+              <span>3 free previews a day, with no sign-up or card needed.</span>
               <a class="sample-link" href="/sample" target="_blank" rel="noopener" data-event="sample_view">See a full sample result</a>
             </div>
             <p class="works-with">Works with <b>Shopify</b>, <b>WooCommerce</b> and any store with a public product page.</p>
@@ -93,51 +93,62 @@
             <div class="pv-head">
               <div class="pv-thumb" id="pv-thumb" aria-hidden="true"></div>
               <div>
-                <p class="pv-kicker">Your product, rewritten</p>
-                <p class="pv-source" id="pv-source"></p>
+                <p class="pv-kicker">Your product page: current vs. rewritten</p>
+                <p class="pv-source"><span id="pv-source"></span>. The free preview shows the new title and first sentence.</p>
               </div>
             </div>
 
             <div class="pv-compare">
               <p class="label">Title</p>
-              <p class="pv-before"><span class="pv-tag">Now</span><span id="pv-old-title"></span></p>
-              <h2 class="new-title"><span class="pv-tag pv-tag-new">New</span><span id="pv-title"></span></h2>
+              <p class="pv-before"><span class="pv-tag">Your current</span><span id="pv-old-title"></span></p>
+              <h2 class="new-title"><span class="pv-tag pv-tag-new">Rewritten</span><span id="pv-title"></span></h2>
             </div>
             <div class="pv-compare">
               <p class="label">Intro</p>
-              <p class="pv-before" id="pv-old-desc-row"><span class="pv-tag">Now</span><span id="pv-old-desc"></span></p>
-              <p class="intro"><span class="pv-tag pv-tag-new">New</span><span id="pv-intro"></span></p>
+              <p class="pv-before" id="pv-old-desc-row"><span class="pv-tag">Your current</span><span id="pv-old-desc"></span></p>
+              <p class="intro"><span class="pv-tag pv-tag-new">Rewritten</span><span id="pv-intro"></span></p>
               <div aria-hidden="true"><div class="ph-line" style="width:92%"></div><div class="ph-line" style="width:64%"></div></div>
             </div>
 
-            <ul class="pv-checks" id="pv-checks" aria-label="Checks the full page passes"></ul>
-            <div class="doc-row">
-              <p class="label" id="pv-bullets-label">Spec bullets</p>
-              <div id="pv-bullets" aria-hidden="true"></div>
+            <div class="pv-measure">
+              <p class="label" id="pv-checks-title">How the rewritten page measures up</p>
+              <ul class="pv-checks" id="pv-checks" aria-labelledby="pv-checks-title"></ul>
             </div>
-            <div class="doc-row">
-              <p class="label">Meta description for Google</p>
-              <div aria-hidden="true"><div class="ph-line" style="width:96%"></div><div class="ph-line" style="width:52%"></div></div>
+
+            <div class="pv-included">
+              <p class="label">Included in the full page</p>
+              <ul class="pv-included-list" id="pv-included"></ul>
+              <div aria-hidden="true" class="pv-locked-lines"><div class="ph-line" style="width:88%"></div><div class="ph-line" style="width:72%"></div><div class="ph-line" style="width:80%"></div></div>
             </div>
-            <div class="doc-row">
-              <p class="label" id="pv-alts-label">Image alt text</p>
-              <div id="pv-alts" aria-hidden="true"></div>
-            </div>
-            <p class="lock-note"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>The rest of the page unlocks after payment</p>
           </div>
 
-          <form class="unlock sheet" id="unlock-form" novalidate>
-            <span class="tape tape-top" aria-hidden="true"></span>
-            <h3>The full page, <span data-price="single">$19</span></h3>
-            <p>Every field with a copy button, a CSV to import into Shopify, and a permanent link by email.</p>
-            <div class="unlock-row">
-              <label class="sr-only" for="unlock-email">Email for your result</label>
-              <input id="unlock-email" type="email" autocomplete="email" placeholder="you@yourstore.com" required>
-              <button class="btn btn-accent" type="submit" id="unlock-btn">Get the full page</button>
+          <div class="pv-side">
+            <form class="unlock sheet" id="unlock-form" novalidate>
+              <span class="tape tape-top" aria-hidden="true"></span>
+              <h3>Get this page, <span data-price="single">$19</span></h3>
+              <p>Title, intro, bullets, meta description and alt text for this product, ready to paste. Full refund if it's not useful.</p>
+              <div class="unlock-row">
+                <label class="sr-only" for="unlock-email">Email for your result</label>
+                <input id="unlock-email" type="email" autocomplete="email" placeholder="you@yourstore.com" required>
+                <button class="btn btn-accent" type="submit" id="unlock-btn">Get the full page – <span data-price="single">$19</span></button>
+              </div>
+              <span class="fine">Secure checkout by Stripe.</span>
+              <a class="sample-link" href="/sample" target="_blank" rel="noopener" data-event="sample_view">See a full sample result first</a>
+              <p class="pv-more">Have more products? <button type="button" class="linkish" data-plan="pilot" data-event="pilot_click">Pilot: 20 products for <span data-price="pilot">$149</span> ($7.45 each)</button>, with a CSV upload.</p>
+            </form>
+
+            <div class="pv-later">
+              <p class="pv-later-title">Not ready yet?</p>
+              <form class="pv-save" id="save-form" novalidate>
+                <label class="sr-only" for="save-email">Email to send this preview to</label>
+                <input id="save-email" type="email" autocomplete="email" placeholder="you@yourstore.com">
+                <button class="btn btn-ghost btn-sm" type="submit" id="save-btn">Email me this preview</button>
+              </form>
+              <p class="fine" id="save-status" role="status" aria-live="polite">We'll send a link back to it. No account needed.</p>
+              <p class="pv-remaining" id="pv-remaining"></p>
+              <p class="pv-founding">Want a few pages free? The first 10 stores get 3 free pages for an honest review. <a href="#founding" data-event="founding_click">Ask about a founding spot</a></p>
             </div>
-            <span class="fine">Secure checkout by Stripe. Not happy? Full refund.</span>
-            <a class="sample-link" href="/sample" target="_blank" rel="noopener" data-event="sample_view">See a full sample result first</a>
-          </form>
+          </div>
         </article>
       </div>
     </section>

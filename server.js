@@ -98,7 +98,7 @@ app.get('/api/health', (req, res) => {
 app.post('/api/event', (req, res) => {
   const name = req.body?.name;
   // Only these client events are accepted; payments and previews are tracked on the server.
-  if (['page_view', 'sample_view', 'compare_used', 'founding_click'].includes(name)) track(name, null, { path: String(req.body.path || '/').slice(0, 100) });
+  if (['page_view', 'sample_view', 'compare_used', 'founding_click', 'pilot_click'].includes(name)) track(name, null, { path: String(req.body.path || '/').slice(0, 100) });
   res.status(204).end();
 });
 
@@ -156,28 +156,61 @@ app.post('/api/preview', async (req, res) => {
     .run(genId, product.url || null, product.platform, JSON.stringify(product), JSON.stringify(result), ip, email);
   track('preview_created', genId, { kind: product.platform });
 
-  // Only the title and the first sentence of the intro leave the server before payment.
-  // "source" is the store's own current copy (already public on their site), shown as the "before".
+  res.json({ ...previewPayload(genId, product, result), remaining: Math.max(0, config.previewsPerDay - (byIp + 1)) });
+});
+
+// The free preview as the browser may see it: only the title and the first sentence of the intro leave
+// the server before payment. "source" is the store's own current copy (already public on their site).
+function previewPayload(genId, product, result) {
   const len = (s) => [...String(s || '')].length;
-  res.json({
+  const images = product.images?.length || 0;
+  const oldAlts = (product.images || []).filter((i) => String(i.current_alt || '').trim()).length;
+  return {
     id: genId,
     preview: { title: result.title, intro_first: firstSentence(result.intro) },
-    locked: { bullets: result.bullets.length, alts: result.alts.length, missing_info: result.missing_info.length },
+    locked: { bullets: result.bullets.length, alts: result.alts.length, missing_info: result.missing_info.length, meta: len(result.meta) > 0 },
     source: {
       title: product.title,
       description: String(product.description || '').replace(/\s+/g, ' ').trim().slice(0, 220),
       image: product.images?.[0]?.src || null,
-      imageCount: product.images?.length || 0,
+      imageCount: images,
     },
-    // Checks the shopper-facing result passes, computed from the full result without revealing it.
+    // Measured on the full result without revealing it. Each line says what it measures: theirs → ours.
     checks: [
-      { label: 'Title under 60 characters', ok: len(result.title) <= 60, detail: `${len(product.title)} → ${len(result.title)}` },
-      { label: 'Meta description under 155 characters', ok: len(result.meta) > 0 && len(result.meta) <= 155, detail: `${len(result.meta)} characters` },
+      { label: 'Title length', ok: len(result.title) <= 60, detail: `${len(product.title)} → ${len(result.title)} characters (Google shows about 60)` },
+      { label: 'Meta description', ok: len(result.meta) > 0 && len(result.meta) <= 155, detail: `${len(result.meta)} characters (limit 155)` },
       // Only meaningful when the page has images; with none, a "0 of 0" pass would mislead.
-      ...(product.images?.length ? [{ label: 'Alt text for every image', ok: result.alts.length === product.images.length, detail: `${result.alts.length} of ${product.images.length}` }] : []),
-      { label: 'Spec bullets', ok: result.bullets.length >= 3, detail: `${result.bullets.length}` },
+      ...(images ? [{ label: 'Image alt text', ok: result.alts.length === images, detail: `${oldAlts} of ${images} → ${result.alts.length} of ${images} images` }] : []),
+      { label: 'Spec bullets', ok: result.bullets.length >= 3, detail: `${result.bullets.length} ready to paste` },
     ],
-  });
+  };
+}
+
+// Re-open a saved preview from the link in the "email me this preview" message.
+app.get('/api/preview/:id', (req, res) => {
+  const g = db.prepare(`SELECT id, status, source_json, result_json FROM generations WHERE id = ?`).get(String(req.params.id));
+  if (!g || g.status !== 'locked') return res.status(404).json({ error: 'This preview is no longer available.' });
+  res.json(previewPayload(g.id, JSON.parse(g.source_json), JSON.parse(g.result_json)));
+});
+
+// "Not ready to pay": email the visitor a link back to their preview. One save per preview,
+// only from the same visitor (IP) who created it, so it can't be used to email strangers in bulk.
+app.post('/api/preview/:id/save', async (req, res) => {
+  const email = String(req.body?.email || '').trim().toLowerCase();
+  if (!emailOk(email)) return res.status(400).json({ error: 'Enter a valid email address.' });
+  const g = db.prepare(`SELECT id, status, ip, email, source_json, result_json FROM generations WHERE id = ?`).get(String(req.params.id));
+  if (!g || g.status !== 'locked' || g.ip !== req.ip) return res.status(404).json({ error: 'This preview is no longer available.' });
+  if (g.email) return res.json({ ok: true, already: true });
+  db.prepare(`UPDATE generations SET email = ? WHERE id = ? AND email IS NULL`).run(email, g.id);
+  track('preview_saved', g.id);
+  const result = JSON.parse(g.result_json);
+  const link = `${config.baseUrl}/?p=${g.id}#preview`;
+  sendMail(email, 'Your Pagelift preview', [
+    'Hi,',
+    `Here's the preview you made: "${result.title}".`,
+    'The link below opens it again. When you want the full page (intro, spec bullets, meta description and alt text), you can get it from there.',
+  ], link).catch((e) => console.error('mail failed', e.message));
+  res.json({ ok: true });
 });
 
 // ---------- Checkout ----------

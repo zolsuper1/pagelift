@@ -576,3 +576,38 @@ h2 { font-size: clamp(32px, 8.5vw, 62px); line-height: 1.08; }
 .faq { padding-top: 8px; }
 .why-item:first-child { padding-left: 12px; }
 @media (max-width: 860px) { .why-item, .why-item + .why-item { padding-left: 12px; padding-right: 12px; } }
+
+/* Highlighter: a marker stroke on the lower part of the line only, so it never climbs onto the line above */
+.hl { padding: 0 .1em; margin-inline-start: -.05em; border-radius: 6px 14px 8px 16px / 10px 6px 12px 6px;
+  background: linear-gradient(100deg, transparent 0 .6%, var(--accent) 1.6%, #ffa63d 55%, var(--orange) 98.2%, transparent 99.4%) no-repeat left 0 bottom .02em / 100% .62em;
+  color: var(--text); }
+@keyframes wipe { from { background-size: 0% .62em; } to { background-size: 100% .62em; } }
+.hero h1 .line { display: block; }
+
+/* =================== Post-preview: clear comparison + CTA ladder =================== */
+.pv-source { margin: 2px 0 0; }
+.pv-tag { min-width: 0; }
+.pv-measure, .pv-included { padding: 16px 0 4px; border-top: 1px dashed var(--border); }
+.pv-measure .pv-checks { border-top: 0; padding-top: 4px; margin-top: 0; }
+.pv-included-list { margin: 6px 0 10px; padding-inline-start: 20px; display: grid; gap: 4px; font-size: 16px; }
+.pv-included-list li::marker { color: var(--accent); }
+.pv-locked-lines { opacity: .6; }
+/* Side column: purchase first, then the quiet "not ready" path */
+.pv-side { align-self: start; position: sticky; top: 100px; display: grid; gap: 18px; }
+.pv-side .unlock { position: static; top: auto; }
+.unlock-row .btn span { font: inherit; }
+.pv-more { margin: 4px 0 0; padding-top: 12px; border-top: 1.5px dashed rgba(23,18,59,.25); font-size: 15px; color: var(--paper-ink) !important; }
+.pv-more .linkish { font-family: var(--font); font-weight: 700; font-size: 15px; color: var(--paper-note); background: none; text-decoration: underline; text-underline-offset: 3px; padding: 0; }
+.pv-later { padding: 18px 20px; border: 1.5px dashed var(--border-input); border-radius: var(--wobble-sm); }
+.pv-later-title { margin: 0 0 10px; font-family: var(--hand); font-size: 22px; }
+.pv-save { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; }
+.pv-save input { min-width: 0; height: 44px; font: inherit; font-size: 15px; padding: 0 12px; border: 1.5px solid var(--border-input); border-radius: var(--wobble-sm); background: var(--bg); color: var(--text); }
+.pv-later .fine { display: block; margin: 8px 0 0; }
+.pv-remaining { margin: 12px 0 0; font-size: 15px; color: var(--text); }
+.pv-founding { margin: 10px 0 0; font-size: 14px; color: var(--text-muted); }
+@media (max-width: 900px) { .pv-side { position: static; } }
+@media (max-width: 420px) { .pv-save { grid-template-columns: 1fr; } .pv-save .btn { width: 100%; } }
+.preview .new-title .pv-tag-new, .preview .intro .pv-tag-new { background: var(--accent); background-image: none; color: var(--on-accent); }
+/* Highlighter covers the full letter height (dark ink on amber, 10:1) but stays inside its own line box */
+.hl { color: var(--paper-ink); background-size: 100% .9em; background-position: left 0 bottom .08em; }
+@keyframes wipe { from { background-size: 0% .9em; } to { background-size: 100% .9em; } }
