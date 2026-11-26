@@ -24,7 +24,8 @@ services:
         sync: false
       - key: GEMINI_API_KEY
         sync: false
-      # Payments stay on the mock page until Stripe keys are in (mock is blocked when NODE_ENV=production)
+      # Checkout stays closed ("Opening soon") until payment keys exist. Test payments are never enabled here.
+      # To open it: set PAYMENT_PROVIDER=stripe plus STRIPE_SECRET_KEY and STRIPE_WEBHOOK_SECRET.
       - key: PAYMENT_PROVIDER
         value: mock
       - key: CURRENCY

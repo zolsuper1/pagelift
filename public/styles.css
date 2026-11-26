@@ -611,3 +611,11 @@ h2 { font-size: clamp(32px, 8.5vw, 62px); line-height: 1.08; }
 /* Highlighter covers the full letter height (dark ink on amber, 10:1) but stays inside its own line box */
 .hl { color: var(--paper-ink); background-size: 100% .9em; background-position: left 0 bottom .08em; }
 @keyframes wipe { from { background-size: 0% .9em; } to { background-size: 100% .9em; } }
+
+/* The key phrase is always readable: no wipe that starts invisible */
+.hl { animation: none; }
+/* Checkout not open yet */
+.checkout-soon { margin: 0; font-weight: 700; color: var(--paper-ink) !important; }
+.btn.is-soon[disabled] { cursor: default; opacity: .75; }
+.pv-kicker { line-height: 1.25; }
+@media (max-width: 560px) { .pv-head { align-items: flex-start; gap: 12px; } .pv-thumb { width: 52px; height: 52px; } .pv-kicker { font-size: 19px; } }

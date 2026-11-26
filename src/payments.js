@@ -21,14 +21,14 @@ const urls = (order) => ({
 // ---------- Mock (local development only) ----------
 const mock = {
   async createCheckout(order) {
-    if (config.isProd) throw new Error('mock payments are disabled in production');
+    if (!config.mockAllowed) throw new Error('test payments are disabled');
     return { redirectUrl: `${config.baseUrl}/mock-pay/${order.id}`, providerRef: `mock_${order.id}` };
   },
   sign(body) {
     return crypto.createHmac('sha256', config.mockSecret).update(body).digest('hex');
   },
   async verifyWebhook(raw, headers) {
-    if (config.isProd) throw new Error('mock payments are disabled in production');
+    if (!config.mockAllowed) throw new Error('test payments are disabled');
     const sig = String(headers['x-mock-signature'] || '');
     const expected = this.sign(raw);
     if (sig.length !== expected.length || !crypto.timingSafeEqual(Buffer.from(sig), Buffer.from(expected))) {

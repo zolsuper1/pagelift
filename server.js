@@ -83,6 +83,8 @@ app.get('/api/config', (req, res) => {
   res.json({
     turnstileSiteKey: config.turnstileSiteKey,
     contactUrl: config.contactUrl,
+    checkoutOpen: config.checkoutOpen,
+    emailOn: config.emailOn,
     currency: config.currency,
     plans: Object.fromEntries(Object.entries(PLANS).map(([k, p]) => [k, { label: p.label, price: p.amount / 100, quota: p.quota }])),
   });
@@ -197,6 +199,7 @@ app.get('/api/preview/:id', (req, res) => {
 // only from the same visitor (IP) who created it, so it can't be used to email strangers in bulk.
 app.post('/api/preview/:id/save', async (req, res) => {
   const email = String(req.body?.email || '').trim().toLowerCase();
+  if (!config.emailOn) return res.status(503).json({ error: "Email isn't set up yet." });
   if (!emailOk(email)) return res.status(400).json({ error: 'Enter a valid email address.' });
   const g = db.prepare(`SELECT id, status, ip, email, source_json, result_json FROM generations WHERE id = ?`).get(String(req.params.id));
   if (!g || g.status !== 'locked' || g.ip !== req.ip) return res.status(404).json({ error: 'This preview is no longer available.' });
@@ -218,6 +221,7 @@ app.post('/api/checkout', async (req, res) => {
   const { plan, generationId } = req.body || {};
   const email = String(req.body?.email || '').trim().toLowerCase();
   const p = PLANS[plan];
+  if (!config.checkoutOpen) return res.status(503).json({ error: "Checkout isn't open yet." });
   if (!p) return res.status(400).json({ error: 'Unknown plan' });
   if (!emailOk(email)) return res.status(400).json({ error: 'Invalid email address' });
 
@@ -248,7 +252,7 @@ app.post('/api/checkout', async (req, res) => {
 });
 
 // ---------- Mock payment page (dev only) ----------
-if (config.paymentProvider === 'mock' && !config.isProd) {
+if (config.paymentProvider === 'mock' && config.mockAllowed) {
   app.get('/mock-pay/:orderId', (req, res) => {
     const o = db.prepare('SELECT * FROM orders WHERE id = ?').get(req.params.orderId);
     if (!o) return res.status(404).send('not found');

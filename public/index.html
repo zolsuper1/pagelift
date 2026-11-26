@@ -133,6 +133,7 @@
                 <button class="btn btn-accent" type="submit" id="unlock-btn">Get the full page – <span data-price="single">$19</span></button>
               </div>
               <span class="fine">Secure checkout by Stripe.</span>
+              <p class="checkout-soon" hidden>Checkout isn't open yet. Free previews work today.</p>
               <a class="sample-link" href="/sample" target="_blank" rel="noopener" data-event="sample_view">See a full sample result first</a>
               <p class="pv-more">Have more products? <button type="button" class="linkish" data-plan="pilot" data-event="pilot_click">Pilot: 20 products for <span data-price="pilot">$149</span> ($7.45 each)</button>, with a CSV upload.</p>
             </form>
@@ -146,7 +147,7 @@
               </form>
               <p class="fine" id="save-status" role="status" aria-live="polite">We'll send a link back to it. No account needed.</p>
               <p class="pv-remaining" id="pv-remaining"></p>
-              <p class="pv-founding">Want a few pages free? The first 10 stores get 3 free pages for an honest review. <a href="#founding" data-event="founding_click">Ask about a founding spot</a></p>
+              <p class="pv-founding" data-needs-contact hidden>Want a few pages free? The first 10 stores get 3 free pages for an honest review. <a href="#founding" data-event="founding_click">Ask about a founding spot</a></p>
             </div>
           </div>
         </article>
@@ -263,7 +264,7 @@
     </section>
 
     <!-- Founding stores: the honest way to earn the first reviews and logos -->
-    <section class="founding" id="founding" aria-labelledby="founding-title">
+    <section class="founding" id="founding" aria-labelledby="founding-title" data-needs-contact hidden>
       <div class="wrap">
         <div class="founding-sheet sheet">
           <span class="tape tape-top" aria-hidden="true"></span>
@@ -271,7 +272,7 @@
             <h2 id="founding-title">Be one of our first 10 stores</h2>
             <p>Get <b>3 product pages free</b>. In return, tell us honestly how it went, and if you liked it, let us show your review and your store's logo here.</p>
           </div>
-          <a class="btn btn-accent" id="founding-link" href="mailto:hello@example.com" data-event="founding_click">Claim a founding spot</a>
+          <a class="btn btn-accent" id="founding-link" href="#founding" data-event="founding_click">Claim a founding spot</a>
         </div>
       </div>
     </section>
@@ -304,11 +305,11 @@
               <td class="price"><span data-price="catalog">$449</span><small class="per">$4.49 per product</small></td>
               <td><button class="btn btn-ghost btn-sm" data-plan="catalog">Buy the catalog</button></td>
             </tr>
-            <tr>
+            <tr data-needs-contact hidden>
               <td><div class="plan-name">Monthly</div></td>
               <td class="plan-desc">New products every month, plus seasonal and sale updates. We agree the volume together</td>
               <td class="price">$249<small> /mo</small></td>
-              <td><a class="btn btn-ghost btn-sm" id="contact-link" href="mailto:hello@example.com">Talk to us</a></td>
+              <td><a class="btn btn-ghost btn-sm" id="contact-link" href="#pricing">Talk to us</a></td>
             </tr>
           </tbody>
         </table>

@@ -3,7 +3,25 @@ const env = process.env;
 
 const num = (v, d) => (v === undefined || v === '' ? d : Number(v));
 
+// Test payments hand out the paid result for free, so they must be switched on explicitly (local .env only).
+const mockAllowed = env.ALLOW_MOCK_PAYMENTS === '1' && env.NODE_ENV !== 'production';
+// An unset or placeholder address would silently swallow leads: treat it as "no contact yet".
+const contact = (env.CONTACT_URL || '').trim();
+const contactUrl = /@(example\.com|yourdomain\.com)/i.test(contact) ? '' : contact;
+
 export const config = {
+  mockAllowed,
+  // Can a visitor actually pay right now?
+  get checkoutOpen() {
+    const p = this.paymentProvider;
+    if (p === 'mock') return this.mockAllowed;
+    if (p === 'stripe') return Boolean(this.stripe.secretKey && this.stripe.webhookSecret);
+    if (p === 'cardcom') return Boolean(this.cardcom.terminal && this.cardcom.apiName);
+    if (p === 'payplus') return Boolean(this.payplus.apiKey && this.payplus.secretKey && this.payplus.pageUid);
+    return false;
+  },
+  // Without SMTP, mail is only printed to the console: don't tell a real visitor it was sent.
+  get emailOn() { return Boolean(this.smtp.host) || this.mockAllowed; },
   port: num(env.PORT, 3000),
   baseUrl: (env.BASE_URL || 'http://localhost:3000').replace(/\/$/, ''),
   isProd: env.NODE_ENV === 'production',
@@ -50,7 +68,7 @@ export const config = {
 
   adminPassword: env.ADMIN_PASSWORD || '',
   // Where "Talk to us" on the monthly plan goes: a mailto: or a booking link (Calendly, Cal.com…)
-  contactUrl: env.CONTACT_URL || 'mailto:hello@example.com?subject=Pagelift%20monthly%20plan',
+  contactUrl,
 };
 
 // Prices live on the server only. Amounts in the smallest currency unit (cents).

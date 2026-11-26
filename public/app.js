@@ -27,10 +27,20 @@
   // Config + Turnstile
   fetch('/api/config').then((r) => r.json()).then((cfg) => {
     state.cfg = cfg;
-    $('#contact-link').href = cfg.contactUrl;
-    // Founding offer goes to the same inbox with its own subject line (or straight to a booking link).
-    const fl = $('#founding-link');
-    if (fl) fl.href = cfg.contactUrl.startsWith('mailto:') ? cfg.contactUrl.split('?')[0] + '?subject=' + encodeURIComponent('Founding store: 3 free pages') : cfg.contactUrl;
+    // Contact-based offers appear only once a real address or booking link is configured.
+    if (cfg.contactUrl) {
+      const withSubject = (s) => (cfg.contactUrl.startsWith('mailto:') ? cfg.contactUrl.split('?')[0] + '?subject=' + encodeURIComponent(s) : cfg.contactUrl);
+      $('#contact-link').href = withSubject('Pagelift monthly plan');
+      $('#founding-link').href = withSubject('Founding store: 3 free pages');
+      document.querySelectorAll('[data-needs-contact]').forEach((el) => { el.hidden = false; });
+    }
+    // Checkout closed (no payment keys yet): say so instead of offering buttons that can't work.
+    if (!cfg.checkoutOpen) {
+      document.querySelectorAll('#unlock-form .unlock-row, #unlock-form .fine, .pv-more').forEach((el) => { el.hidden = true; });
+      $('.checkout-soon').hidden = false;
+      document.querySelectorAll('button.btn[data-plan]').forEach((b) => { b.disabled = true; b.textContent = 'Opening soon'; b.className = 'btn btn-ghost btn-sm is-soon'; });
+    }
+    if (!cfg.emailOn) document.querySelectorAll('#save-form, #save-status').forEach((el) => { el.hidden = true; });
     // Prices come from the server, so the page always matches what checkout charges, per-product included.
     document.querySelectorAll('[data-price]').forEach((el) => {
       const p = cfg.plans?.[el.dataset.price];
