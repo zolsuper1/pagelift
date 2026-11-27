@@ -38,7 +38,7 @@
     if (!cfg.checkoutOpen) {
       document.querySelectorAll('#unlock-form .unlock-row, #unlock-form .fine, .pv-more').forEach((el) => { el.hidden = true; });
       $('.checkout-soon').hidden = false;
-      document.querySelectorAll('button.btn[data-plan]').forEach((b) => { b.disabled = true; b.textContent = 'Opening soon'; b.className = 'btn btn-ghost btn-sm is-soon'; });
+      document.querySelectorAll('button.btn[data-plan]').forEach((b) => { b.disabled = true; b.textContent = 'Opening soon'; b.className = 'btn btn-ghost is-soon'; });
     }
     if (!cfg.emailOn) document.querySelectorAll('#save-form, #save-status').forEach((el) => { el.hidden = true; });
     // Prices come from the server, so the page always matches what checkout charges, per-product included.

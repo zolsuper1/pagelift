@@ -7,7 +7,7 @@
   <meta name="description" content="Paste a product link from your Shopify or WooCommerce store and get a search-friendly title, intro, spec bullets, meta description and image alt text. Written from your facts, never made up.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Permanent+Marker&family=Kalam:wght@700&family=Suez+One&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="icon" href="/brand/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/styles.css">
   <link rel="stylesheet" href="/clients.css">
@@ -28,13 +28,20 @@
   <main>
     <!-- Hero -->
     <section class="hero" id="top">
-      <div class="planet" aria-hidden="true"></div>
-      <div class="planet-ring" aria-hidden="true"></div>
       <div class="wrap">
-        <div class="hero-grid">
-          <div>
-            <h1><span class="line">Product pages</span><span class="line">shoppers can trust,</span><span class="line"><span class="hl">in a minute.</span></span></h1>
-            <p class="lede">Paste a product link and get a search-friendly title, an intro, spec bullets, a meta description and alt text for every image. Written from your facts, never made up. Not happy? Full refund.</p>
+        <div class="hero-intro">
+          <svg class="planet" viewBox="0 0 600 520" aria-hidden="true">
+          <defs><clipPath id="pc"><circle cx="300" cy="280" r="190"/></clipPath></defs>
+          <path d="M40 330 C40 262 560 150 560 218" fill="none" stroke="#17123b" stroke-width="14" stroke-linecap="round"/>
+          <g clip-path="url(#pc)"><rect x="100" y="80" width="400" height="400" fill="#fff1dc"/><rect x="100" y="250" width="400" height="48" fill="#ff7a2f"/><rect x="100" y="312" width="400" height="44" fill="#ff4f7b"/><rect x="100" y="370" width="400" height="40" fill="#9b4dff"/><rect x="100" y="424" width="400" height="60" fill="#3fd6c6"/></g>
+          <circle cx="300" cy="280" r="190" fill="none" stroke="#17123b" stroke-width="8"/>
+          <path d="M560 218 C560 288 40 400 40 330" fill="none" stroke="#ffb547" stroke-width="34" stroke-linecap="round"/>
+          <path d="M560 218 C560 288 40 400 40 330" fill="none" stroke="#17123b" stroke-width="14" stroke-linecap="round"/>
+          <path fill="#17123b" d="M78 66l8.4 21.599999999999998 21.599999999999998 8.4 -21.599999999999998 8.4 -8.4 21.599999999999998 -8.4 -21.599999999999998 -21.599999999999998 -8.4 21.599999999999998 -8.4z"/><path fill="#ff4f7b" d="M532 52l5.040000000000001 12.959999999999999 12.959999999999999 5.040000000000001 -12.959999999999999 5.040000000000001 -5.040000000000001 12.959999999999999 -5.040000000000001 -12.959999999999999 -12.959999999999999 -5.040000000000001 12.959999999999999 -5.040000000000001z"/><path fill="#17123b" d="M548 396l6.720000000000001 17.28 17.28 6.720000000000001 -17.28 6.720000000000001 -6.720000000000001 17.28 -6.720000000000001 -17.28 -17.28 -6.720000000000001 17.28 -6.720000000000001z"/>
+        </svg>
+          <div class="hero-copy">
+            <h1>Your supplier wrote your product page. <span class="hl">Fix it.</span></h1>
+            <p class="lede">Paste a link and get a title, description, bullets, meta description and alt text written from your own facts. Not happy? Full refund.</p>
 
             <form class="url-card" id="preview-form" novalidate>
               <div class="url-row">
@@ -63,28 +70,6 @@
             <div id="status" role="status" aria-live="polite"></div>
           </div>
 
-          <!-- Specimen: what the rewrite does to one field -->
-          <figure class="specimen" aria-label="Example: a supplier title next to the new title">
-            <span class="tape tape-a" aria-hidden="true"></span>
-            <span class="tape tape-b" aria-hidden="true"></span>
-            <figcaption class="specimen-bar">Sample product: earrings from a jewelry store</figcaption>
-            <div class="spec-row">
-              <div class="spec-key"><span>Title</span><span class="counter">41/60</span></div>
-              <span class="old">Women Fashion Hoop Earrings Gold Plated 30mm 2024 New Hot</span>
-              <span class="new"><mark>Gold-Plated Hoop Earrings for Women, 30mm</mark></span>
-              <p class="note"><span class="note-num">1</span>Search term up front, under 60 characters</p>
-            </div>
-            <div class="spec-row">
-              <div class="spec-key"><span>Intro</span></div>
-              <span class="new-sm">A thin 30mm hoop that works at the office and on a night out. Gold-plated, with a click closure.</span>
-              <p class="note"><span class="note-num">2</span>Only what your page says. No made-up specs</p>
-            </div>
-            <div class="spec-row">
-              <div class="spec-key"><span>Missing from the page</span></div>
-              <span class="new-sm">How thick is the plating? Are they nickel-free?</span>
-              <p class="note"><span class="note-num">3</span>What shoppers will ask. Worth adding</p>
-            </div>
-          </figure>
         </div>
 
         <!-- Preview result -->
@@ -124,7 +109,6 @@
 
           <div class="pv-side">
             <form class="unlock sheet" id="unlock-form" novalidate>
-              <span class="tape tape-top" aria-hidden="true"></span>
               <h3>Get this page, <span data-price="single">$19</span></h3>
               <p>Title, intro, bullets, meta description and alt text for this product, ready to paste. Full refund if it's not useful.</p>
               <div class="unlock-row">
@@ -153,6 +137,25 @@
         </article>
       </div>
     </section>
+
+    <!-- What the rewrite does, field by field -->
+    <div class="console-sec">
+      <div class="wrap">
+        <figure class="console" aria-label="Example: supplier copy next to the rewritten page">
+          <figcaption><span>Illustrative example: gold hoop earrings</span><span>Checked against field limits</span></figcaption>
+          <table>
+            <thead><tr><th scope="col">Field</th><th scope="col">What the supplier wrote</th><th scope="col">What Pagelift wrote</th><th scope="col">Check</th></tr></thead>
+            <tbody>
+            <tr><th scope="row">Title</th><td class="old"><s>Women Fashion Hoop Earrings Gold Plated 30mm 2024 New Hot</s></td><td class="new big">Gold-Plated Hoop Earrings for Women, 30mm</td><td class="check"><span class="chip">41 / 60</span></td></tr>
+            <tr><th scope="row">Description</th><td class="old"><s>BEST fashion earrings!! gold plated 30mm hoop, click closure. HOT SALE!!!</s></td><td class="new">A 30mm hoop earring for women with a gold-plated finish and a click closure.</td><td class="check"><span class="chip warn">Hype removed</span></td></tr>
+            <tr><th scope="row">Spec bullets</th><td class="old">None</td><td class="new">30mm hoop. Gold-plated. Click closure.</td><td class="check"><span class="chip">3 added</span></td></tr>
+            <tr><th scope="row">Alt text</th><td class="old">None</td><td class="new">Gold-plated hoop earrings, 30mm</td><td class="check"><span class="chip">1 / 1</span></td></tr>
+            <tr><th scope="row">Missing info</th><td class="old">Not mentioned</td><td class="new">How thick is the plating? Are they nickel-free?</td><td class="check"><span class="chip ask">Worth adding</span></td></tr>
+            </tbody>
+          </table>
+        </figure>
+      </div>
+    </div>
 
     <!-- Before / after slider: the product page itself -->
     <section class="block compare-sec" id="compare">
@@ -229,38 +232,39 @@
     <section class="block" id="pricing">
       <div class="wrap">
         <div class="section-head">
-          <h2>Plans and pricing</h2>
+          <h2>Pick a size</h2>
           <p>Pay once per package. Subscribe only if you add products every month.</p>
         </div>
-        <table class="pricing">
-          <thead><tr><th scope="col">Plan</th><th scope="col">What you get</th><th scope="col">Price</th><th scope="col"><span class="sr-only">Action</span></th></tr></thead>
-          <tbody>
-            <tr>
-              <td><div class="plan-name">Single product</div></td>
-              <td class="plan-desc">One full product page, from a link or from text</td>
-              <td class="price" data-price="single">$19</td>
-              <td><a class="btn btn-ghost btn-sm" href="#top">Get a free preview</a></td>
-            </tr>
-            <tr class="featured">
-              <td><div class="plan-name">Pilot</div></td>
-              <td class="plan-desc">Up to 20 products. Upload a CSV export from your store and get a file ready to import</td>
-              <td class="price"><span data-price="pilot">$149</span><small class="per">$7.45 per product</small></td>
-              <td><button class="btn btn-accent btn-sm" data-plan="pilot">Buy the pilot</button></td>
-            </tr>
-            <tr>
-              <td><div class="plan-name">Catalog</div></td>
-              <td class="plan-desc">Up to 100 products, same CSV upload</td>
-              <td class="price"><span data-price="catalog">$449</span><small class="per">$4.49 per product</small></td>
-              <td><button class="btn btn-ghost btn-sm" data-plan="catalog">Buy the catalog</button></td>
-            </tr>
-            <tr data-needs-contact hidden>
-              <td><div class="plan-name">Monthly</div></td>
-              <td class="plan-desc">New products every month, plus seasonal and sale updates. We agree the volume together</td>
-              <td class="price">$249<small> /mo</small></td>
-              <td><a class="btn btn-ghost btn-sm" id="contact-link" href="#pricing">Talk to us</a></td>
-            </tr>
-          </tbody>
-        </table>
+        <ul class="plans">
+          <li class="plan">
+            <i class="orb o1" aria-hidden="true"></i>
+            <h3 class="plan-name">Single product</h3>
+            <p class="price-line"><span class="price" data-price="single">$19</span><small class="per">One-time</small></p>
+            <p class="plan-desc">One full product page, from a link or from text.</p>
+            <a class="btn btn-ghost" href="#top">Get a free preview</a>
+          </li>
+          <li class="plan featured">
+            <i class="orb o2" aria-hidden="true"></i>
+            <h3 class="plan-name">Pilot<span class="badge">Best place to start</span></h3>
+            <p class="price-line"><span class="price" data-price="pilot">$149</span><small class="per">$7.45 per product</small></p>
+            <p class="plan-desc">Up to 20 products. Upload a CSV export from your store and get a file ready to import.</p>
+            <button class="btn btn-accent" data-plan="pilot">Buy the pilot</button>
+          </li>
+          <li class="plan">
+            <i class="orb o3" aria-hidden="true"></i>
+            <h3 class="plan-name">Catalog</h3>
+            <p class="price-line"><span class="price" data-price="catalog">$449</span><small class="per">$4.49 per product</small></p>
+            <p class="plan-desc">Up to 100 products, same CSV upload.</p>
+            <button class="btn btn-ghost" data-plan="catalog">Buy the catalog</button>
+          </li>
+          <li class="plan" data-needs-contact hidden>
+            <i class="orb o4" aria-hidden="true"></i>
+            <h3 class="plan-name">Monthly</h3>
+            <p class="price-line"><span class="price">$249<small> /mo</small></span></p>
+            <p class="plan-desc">New products every month, plus seasonal and sale updates. We agree the volume together.</p>
+            <a class="btn btn-ghost" id="contact-link" href="#pricing">Talk to us</a>
+          </li>
+        </ul>
         <p class="guarantee">Not happy with the result? Email us and get a full refund.</p>
       </div>
     </section>
@@ -284,7 +288,6 @@
     <section class="founding" id="founding" aria-labelledby="founding-title" data-needs-contact hidden>
       <div class="wrap">
         <div class="founding-sheet sheet">
-          <span class="tape tape-top" aria-hidden="true"></span>
           <div>
             <h2 id="founding-title">Be one of our first 10 stores</h2>
             <p>Get <b>3 product pages free</b>. In return, tell us honestly how it went, and if you liked it, let us show your review and your store's logo here.</p>
@@ -383,7 +386,6 @@
   <!-- Checkout modal (pilot / catalog) -->
   <div class="modal" id="plan-modal" hidden role="dialog" aria-modal="true" aria-labelledby="plan-modal-title">
     <form class="modal-card sheet" id="plan-form" novalidate>
-      <span class="tape tape-top" aria-hidden="true"></span>
       <h3 id="plan-modal-title"></h3>
       <p>After payment you'll land on the page for uploading your products CSV. We'll email you the link too.</p>
       <div class="field">

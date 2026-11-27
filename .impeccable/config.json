@@ -46,7 +46,43 @@
           "public/index.html"
         ],
         "createdAt": "2026-11-25T08:10:51.195Z",
-        "reason": "Claude: the user asked for a client-logo carousel; styles live in clients.css, it scrolls only when logos overflow, pauses on hover, stops under reduced motion, hidden until real clients are listed"
+        "reason": "agent: pre-existing client strip, hidden until real clients exist, scrolls only on overflow, respects reduced motion"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "public/index.html"
+        ],
+        "createdAt": "2026-11-27T07:43:57.868Z",
+        "reason": "agent: FAQ rows have 22px padding inside the rule line, checked in browser"
+      },
+      {
+        "rule": "oversized-h1",
+        "value": "*",
+        "files": [
+          "public/index.html"
+        ],
+        "createdAt": "2026-11-27T07:43:58.255Z",
+        "reason": "agent: computed h1 is 88px at 1440px wide; user asked for the headline to be the centre"
+      },
+      {
+        "rule": "border-accent-on-rounded",
+        "value": "*",
+        "files": [
+          "public/styles.css"
+        ],
+        "createdAt": "2026-11-27T07:43:59.002Z",
+        "reason": "agent: the two matches are planet rings drawn as ellipses, not card borders"
+      },
+      {
+        "rule": "hard-offset-shadow",
+        "value": "*",
+        "files": [
+          "public/**"
+        ],
+        "createdAt": "2026-11-27T07:43:59.341Z",
+        "reason": "user confirmed: approved the B+C mockup with offset shadows and asked to implement it"
       }
     ]
   }
