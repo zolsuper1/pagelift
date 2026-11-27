@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Pagelift – Product pages that sell, rewritten in a minute</title>
+  <title>Pagelift – Product pages shoppers can trust, rewritten in a minute</title>
   <meta name="description" content="Paste a product link from your Shopify or WooCommerce store and get a search-friendly title, intro, spec bullets, meta description and image alt text. Written from your facts, never made up.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,7 +20,7 @@
         <a href="#compare">Before &amp; after</a>
         <a href="#how">How it works</a>
         <a href="#pricing">Pricing</a>
-        <a class="nav-cta" href="#top">Try it<span class="hide-sm"> free</span></a>
+        <a class="nav-cta" href="#top"><span class="hide-sm">Get a free preview</span><span class="show-sm">Free preview</span></a>
       </nav>
     </div>
   </header>
@@ -33,14 +33,14 @@
       <div class="wrap">
         <div class="hero-grid">
           <div>
-            <h1><span class="line">Product pages</span><span class="line">that sell,</span><span class="line"><span class="hl">in a minute.</span></span></h1>
+            <h1><span class="line">Product pages</span><span class="line">shoppers can trust,</span><span class="line"><span class="hl">in a minute.</span></span></h1>
             <p class="lede">Paste a product link and get a search-friendly title, an intro, spec bullets, a meta description and alt text for every image. Written from your facts, never made up. Not happy? Full refund.</p>
 
             <form class="url-card" id="preview-form" novalidate>
               <div class="url-row">
                 <label class="sr-only" for="url">Paste a link to a product in your store</label>
                 <input id="url" name="url" type="url" inputmode="url" autocomplete="off" placeholder="yourstore.com/products/…">
-                <button class="btn btn-accent" type="submit" id="preview-btn">Show me the new version</button>
+                <button class="btn btn-accent" type="submit" id="preview-btn">Get a free preview</button>
               </div>
               <div class="manual" id="manual" hidden>
                 <div class="field">
@@ -56,7 +56,7 @@
             </form>
             <div class="below-form">
               <button type="button" class="linkish" id="manual-toggle" aria-controls="manual" aria-expanded="false">or paste the text by hand</button>
-              <span>3 free previews a day, with no sign-up or card needed.</span>
+              <span>The preview is free and needs no sign-up. <b>The full page costs <span data-price="single">$19</span>.</b></span>
               <a class="sample-link" href="/sample" target="_blank" rel="noopener" data-event="sample_view">See a full sample result</a>
             </div>
             <p class="works-with">Works with <b>Shopify</b>, <b>WooCommerce</b> and any store with a public product page.</p>
@@ -158,10 +158,14 @@
     <section class="block compare-sec" id="compare">
       <div class="wrap">
         <div class="section-head">
-          <h2>Slide across the page</h2>
-          <p>Same product, same facts. On the left, what the supplier wrote. On the right, what Pagelift wrote.</p>
+          <h2>Same product, rewritten</h2>
+          <p>Same facts. First what the supplier wrote, then what Pagelift wrote.</p>
         </div>
 
+        <div class="compare-toggle" role="group" aria-label="Show version">
+          <button type="button" data-show="before" aria-pressed="true">Before</button>
+          <button type="button" data-show="after" aria-pressed="false">After</button>
+        </div>
         <div class="compare" id="compare-stage" data-pos="50">
           <span class="compare-tag tag-before">Before</span>
           <span class="compare-tag tag-after">After</span>
@@ -202,34 +206,7 @@
           <label class="sr-only" for="compare-range">Show more of the rewritten page</label>
           <input class="compare-range" id="compare-range" type="range" min="0" max="100" value="50">
         </div>
-        <p class="placeholder-note">Illustrative example. Move your mouse across the page, or drag the handle.</p>
-      </div>
-    </section>
-
-    <!-- Why: the principles behind the rewrite (the outcome, not the recipe) -->
-    <section class="block why-sec" id="why" aria-labelledby="why-title">
-      <div class="wrap">
-        <div class="section-head">
-          <h2 id="why-title">Why we cut "BEST QUALITY!!!"</h2>
-          <p>Three rules behind every page we write, and what each one does for your store.</p>
-        </div>
-        <ul class="why-list">
-          <li class="why-item">
-            <p class="why-edit"><s>BEST quality candle!! perfect gift</s><span class="why-arrow" aria-hidden="true"></span><ins>8 oz soy wax, about 45 hours of burn time</ins></p>
-            <h3>Specifics sell, hype doesn't</h3>
-            <p>Shoppers skim past "best" and "perfect" because every listing says it. A size, a material or a burn time answers the question they came with, so they don't have to message you or guess.</p>
-          </li>
-          <li class="why-item">
-            <p class="why-edit"><s>relieves stress and helps you sleep</s><span class="why-arrow" aria-hidden="true"></span><ins class="why-cut">cut</ins></p>
-            <h3>Nothing made up</h3>
-            <p>A spec that isn't true turns into a return. A health claim you can't back up can get a listing pulled. We only write what's already on your page, and tell you what's missing instead of filling the gap.</p>
-          </li>
-          <li class="why-item">
-            <p class="why-edit"><s>Scented Candle Soy Wax Gift Set Hot Sale 2024</s><span class="why-arrow" aria-hidden="true"></span><ins>Lavender &amp; Cedar Soy Candle, 8 oz</ins></p>
-            <h3>Written for search</h3>
-            <p>The words a shopper actually types come first, and the title is written to fit in about 60 characters, before Google cuts it off. You also get the meta description and image alt text, the fields search engines read.</p>
-          </li>
-        </ul>
+        <p class="placeholder-note">Illustrative example.<span class="desktop-only"> Move your mouse across the page, or drag the handle.</span></p>
       </div>
     </section>
 
@@ -245,6 +222,46 @@
           <li class="step"><div class="step-num">2</div><h3>See a free preview</h3><p>The new title and opening sentence show up free, so you see the direction before you pay.</p></li>
           <li class="step"><div class="step-num">3</div><h3>Pay and get it all</h3><p>Every field with a copy button, a CSV to import into Shopify, and a permanent link by email.</p></li>
         </ol>
+      </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="block" id="pricing">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Plans and pricing</h2>
+          <p>Pay once per package. Subscribe only if you add products every month.</p>
+        </div>
+        <table class="pricing">
+          <thead><tr><th scope="col">Plan</th><th scope="col">What you get</th><th scope="col">Price</th><th scope="col"><span class="sr-only">Action</span></th></tr></thead>
+          <tbody>
+            <tr>
+              <td><div class="plan-name">Single product</div></td>
+              <td class="plan-desc">One full product page, from a link or from text</td>
+              <td class="price" data-price="single">$19</td>
+              <td><a class="btn btn-ghost btn-sm" href="#top">Get a free preview</a></td>
+            </tr>
+            <tr class="featured">
+              <td><div class="plan-name">Pilot</div></td>
+              <td class="plan-desc">Up to 20 products. Upload a CSV export from your store and get a file ready to import</td>
+              <td class="price"><span data-price="pilot">$149</span><small class="per">$7.45 per product</small></td>
+              <td><button class="btn btn-accent btn-sm" data-plan="pilot">Buy the pilot</button></td>
+            </tr>
+            <tr>
+              <td><div class="plan-name">Catalog</div></td>
+              <td class="plan-desc">Up to 100 products, same CSV upload</td>
+              <td class="price"><span data-price="catalog">$449</span><small class="per">$4.49 per product</small></td>
+              <td><button class="btn btn-ghost btn-sm" data-plan="catalog">Buy the catalog</button></td>
+            </tr>
+            <tr data-needs-contact hidden>
+              <td><div class="plan-name">Monthly</div></td>
+              <td class="plan-desc">New products every month, plus seasonal and sale updates. We agree the volume together</td>
+              <td class="price">$249<small> /mo</small></td>
+              <td><a class="btn btn-ghost btn-sm" id="contact-link" href="#pricing">Talk to us</a></td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="guarantee">Not happy with the result? Email us and get a full refund.</p>
       </div>
     </section>
 
@@ -277,50 +294,37 @@
       </div>
     </section>
 
-    <!-- Pricing -->
-    <section class="block" id="pricing">
-      <div class="wrap">
-        <div class="section-head">
-          <h2>Plans and pricing</h2>
-          <p>Pay once per package. Subscribe only if you add products every month.</p>
-        </div>
-        <table class="pricing">
-          <thead><tr><th scope="col">Plan</th><th scope="col">What you get</th><th scope="col">Price</th><th scope="col"><span class="sr-only">Action</span></th></tr></thead>
-          <tbody>
-            <tr>
-              <td><div class="plan-name">Single product</div></td>
-              <td class="plan-desc">One full product page, from a link or from text</td>
-              <td class="price" data-price="single">$19</td>
-              <td><a class="btn btn-ghost btn-sm" href="#top">Start with a free preview</a></td>
-            </tr>
-            <tr class="featured">
-              <td><div class="plan-name">Pilot</div></td>
-              <td class="plan-desc">Up to 20 products. Upload a CSV export from your store and get a file ready to import</td>
-              <td class="price"><span data-price="pilot">$149</span><small class="per">$7.45 per product</small></td>
-              <td><button class="btn btn-accent btn-sm" data-plan="pilot">Buy the pilot</button></td>
-            </tr>
-            <tr>
-              <td><div class="plan-name">Catalog</div></td>
-              <td class="plan-desc">Up to 100 products, same CSV upload</td>
-              <td class="price"><span data-price="catalog">$449</span><small class="per">$4.49 per product</small></td>
-              <td><button class="btn btn-ghost btn-sm" data-plan="catalog">Buy the catalog</button></td>
-            </tr>
-            <tr data-needs-contact hidden>
-              <td><div class="plan-name">Monthly</div></td>
-              <td class="plan-desc">New products every month, plus seasonal and sale updates. We agree the volume together</td>
-              <td class="price">$249<small> /mo</small></td>
-              <td><a class="btn btn-ghost btn-sm" id="contact-link" href="#pricing">Talk to us</a></td>
-            </tr>
-          </tbody>
-        </table>
-        <p class="guarantee">Not happy with the result? Email us and get a full refund.</p>
-      </div>
-    </section>
-
     <!-- Client logos: hidden until /clients.json lists real clients who agreed to be shown -->
     <section class="clients-sec" id="clients" hidden aria-labelledby="clients-title" data-impeccable-ignore="marquee">
       <div class="wrap"><p class="clients-title" id="clients-title">Stores that use Pagelift</p></div>
       <div class="marquee"><ul class="marquee-track" id="clients-track"></ul></div>
+    </section>
+
+    <!-- Why: the principles behind the rewrite (the outcome, not the recipe) -->
+    <section class="block why-sec" id="why" aria-labelledby="why-title">
+      <div class="wrap">
+        <div class="section-head">
+          <h2 id="why-title">Why we cut "BEST QUALITY!!!"</h2>
+          <p>Three rules behind every page we write, and what each one does for your store.</p>
+        </div>
+        <ul class="why-list">
+          <li class="why-item">
+            <p class="why-edit"><s>BEST quality candle!! perfect gift</s><span class="why-arrow" aria-hidden="true"></span><ins>8 oz soy wax, about 45 hours of burn time</ins></p>
+            <h3>Specifics sell, hype doesn't</h3>
+            <p>A size, a material or a burn time answers the shopper's question. "Best" doesn't.</p>
+          </li>
+          <li class="why-item">
+            <p class="why-edit"><s>relieves stress and helps you sleep</s><span class="why-arrow" aria-hidden="true"></span><ins class="why-cut">cut</ins></p>
+            <h3>Nothing made up</h3>
+            <p>Wrong specs cause returns. We write from your page and list what's missing.</p>
+          </li>
+          <li class="why-item">
+            <p class="why-edit"><s>Scented Candle Soy Wax Gift Set Hot Sale 2024</s><span class="why-arrow" aria-hidden="true"></span><ins>Lavender &amp; Cedar Soy Candle, 8 oz</ins></p>
+            <h3>Written for search</h3>
+            <p>Titles aim for the words shoppers type, within about 60 characters, plus meta description and alt text.</p>
+          </li>
+        </ul>
+      </div>
     </section>
 
     <!-- FAQ -->
@@ -359,7 +363,7 @@
           <h2>Try it on one of your products</h2>
           <p>The preview is free and takes less than a minute.</p>
         </div>
-        <a class="btn btn-accent" href="#top">Paste a link</a>
+        <a class="btn btn-accent" href="#top">Get a free preview</a>
       </div>
     </section>
   </main>

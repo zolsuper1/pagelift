@@ -25,15 +25,28 @@
     const go = (pct) => { target = Math.max(0, Math.min(100, pct)); if (!raf) raf = requestAnimationFrame(tick); };
     const fromEvent = (e) => { const r = stage.getBoundingClientRect(); return ((e.clientX - r.left) / r.width) * 100; };
 
+    // Phones: a Before / After switch instead of a split page, which cuts both texts mid-word.
+    const narrow = window.matchMedia('(max-width: 760px)');
+    const toggles = [...document.querySelectorAll('.compare-toggle button')];
+    const showSide = (side) => {
+      cancelAnimationFrame(raf); raf = 0;
+      current = target = side === 'after' ? 0 : 100; paint();
+      toggles.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.show === side)));
+    };
+    toggles.forEach((b) => b.addEventListener('click', () => { used(); showSide(b.dataset.show); }));
+    narrow.addEventListener('change', (e) => (e.matches ? showSide('before') : go(50)));
+
     stage.addEventListener('pointermove', (e) => {
+      if (narrow.matches) return;
       if (e.pointerType === 'mouse' || e.buttons) { used(); go(fromEvent(e)); }
     });
-    stage.addEventListener('pointerdown', (e) => { used(); go(fromEvent(e)); });
+    stage.addEventListener('pointerdown', (e) => { if (narrow.matches) return; used(); go(fromEvent(e)); });
     range.addEventListener('input', () => { used(); target = current = Number(range.value); paint(); });
     paint();
+    if (narrow.matches) showSide('before');
 
     // One authored moment: the first time the page scrolls into view, sweep once to show it moves.
-    if (!reduce && 'IntersectionObserver' in window) {
+    if (!reduce && !narrow.matches && 'IntersectionObserver' in window) {
       const io = new IntersectionObserver((entries) => {
         if (!entries[0].isIntersecting) return;
         io.disconnect();
