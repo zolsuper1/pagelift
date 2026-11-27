@@ -369,7 +369,8 @@ app.post('/admin/api/refund/:orderId', adminAuth, (req, res) => {
 });
 
 // ---------- Static ----------
-app.use(express.static(PUB, { extensions: ['html'], maxAge: config.isProd ? '1h' : 0 }));
+// Browsers check for a newer file on every visit (ETag, usually a 304), so a deploy shows at once and never mixes old and new files.
+app.use(express.static(PUB, { extensions: ['html'], maxAge: 0 }));
 app.use((req, res) => res.status(404).sendFile(join(PUB, '404.html')));
 
 app.listen(config.port, () => {
